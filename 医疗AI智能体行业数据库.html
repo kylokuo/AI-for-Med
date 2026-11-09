@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="中国医疗 AI 智能体行业交互式竞品地图，包含品牌、场景、价格、准入、商业化与关键词。">
+  <title>医疗 AI 智能体 · 行业地图</title>
+  <style>
+    :root {
+      --paper: #f5f0e7;
+      --paper-deep: #ece3d4;
+      --paper-soft: #fbf8f1;
+      --ink: #28251f;
+      --muted: #776f63;
+      --line: rgba(72, 61, 47, .16);
+      --line-strong: rgba(72, 61, 47, .28);
+      --terra: #b8583f;
+      --terra-deep: #8f3d31;
+      --terra-soft: #f0d5cb;
+      --moss: #68725e;
+      --moss-soft: #dfe5d9;
+      --gold: #c59453;
+      --gold-soft: #f1e2bd;
+      --plum: #716070;
+      --plum-soft: #e8dfe7;
+      --shadow: 0 22px 60px rgba(65, 48, 28, .12);
+      --radius: 22px;
+      --serif: Georgia, "Songti SC", "STSong", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 9% 2%, rgba(184, 88, 63, .12), transparent 25rem),
+        radial-gradient(circle at 95% 8%, rgba(104, 114, 94, .13), transparent 30rem),
+        var(--paper);
+      font-family: var(--sans);
+      line-height: 1.55;
+    }
+
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
+      outline: 3px solid rgba(184, 88, 63, .35);
+      outline-offset: 3px;
+    }
+    a { color: inherit; }
+    .app { max-width: 1440px; margin: 0 auto; padding: 28px 32px 56px; }
+    .topline, .meta-line, .panel-head, .filter-row, .section-head, .detail-top, .footer-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .topline { margin-bottom: 52px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; color: var(--terra-deep);
+      font-size: 12px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700;
+    }
+    .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terra); box-shadow: 0 0 0 5px var(--terra-soft); }
+    .quiet { color: var(--muted); font-size: 12px; }
+    .hero { position: relative; max-width: 1120px; }
+    .hero h1 { margin: 0; max-width: 850px; font: 500 clamp(42px, 7vw, 88px)/.98 var(--serif); letter-spacing: -.06em; }
+    .hero h1 em { color: var(--terra); font-style: normal; }
+    .hero-copy { max-width: 710px; margin: 28px 0 0; font-size: 17px; color: var(--muted); }
+    .meta-line { justify-content: flex-start; flex-wrap: wrap; margin-top: 22px; }
+    .badge { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 999px; padding: 6px 11px; font-size: 12px; color: var(--muted); background: rgba(251, 248, 241, .5); }
+    .badge strong { color: var(--ink); font-weight: 700; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 22px; margin-top: 46px; }
+    .hero-note, .hero-axis { padding: 24px 26px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(251, 248, 241, .7); }
+    .hero-note { box-shadow: var(--shadow); }
+    .kicker { color: var(--terra); font-size: 12px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .hero-note p { margin: 10px 0 0; font: 500 22px/1.35 var(--serif); }
+    .axis-title { font-size: 13px; color: var(--muted); margin-bottom: 17px; }
+    .axis { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; padding-top: 14px; }
+    .axis::before { content: ""; position: absolute; left: 5%; right: 5%; top: 20px; height: 2px; background: var(--line-strong); }
+    .axis-node { position: relative; z-index: 1; text-align: center; }
+    .axis-node i { display: block; margin: 0 auto 9px; width: 13px; height: 13px; border-radius: 50%; background: var(--paper-soft); border: 3px solid var(--terra); }
+    .axis-node:nth-child(2) i, .axis-node:nth-child(3) i { border-color: var(--gold); }
+    .axis-node:nth-child(4) i, .axis-node:nth-child(5) i { border-color: var(--moss); }
+    .axis-node:nth-child(6) i { border-color: var(--plum); }
+    .axis-node b { display: block; font-size: 12px; }
+    .axis-node span { color: var(--muted); display: block; font-size: 11px; margin-top: 3px; }
+
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 34px 0 28px; }
+    .metric { padding: 17px 19px; border-top: 2px solid var(--ink); background: rgba(251, 248, 241, .5); }
+    .metric-value { font: 500 35px/1 var(--serif); margin-bottom: 7px; }
+    .metric-label { color: var(--muted); font-size: 12px; }
+    .metric:nth-child(2) { border-color: var(--terra); }
+    .metric:nth-child(3) { border-color: var(--moss); }
+    .metric:nth-child(4) { border-color: var(--plum); }
+
+    .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 13px; border-bottom: 1px solid var(--line); }
+    .tab { flex: 0 0 auto; border: 0; background: transparent; padding: 9px 13px; border-radius: 999px; cursor: pointer; color: var(--muted); font-weight: 700; font-size: 13px; }
+    .tab:hover { background: rgba(184, 88, 63, .08); color: var(--terra-deep); }
+    .tab.active { color: var(--paper-soft); background: var(--ink); }
+    .panel { padding-top: 32px; }
+    .panel[hidden] { display: none; }
+    .panel-head { align-items: flex-end; margin-bottom: 22px; }
+    .panel-head h2, .section-head h3 { margin: 0; font: 500 31px/1.1 var(--serif); letter-spacing: -.03em; }
+    .panel-head p { margin: 8px 0 0; max-width: 650px; color: var(--muted); font-size: 14px; }
+    .section-head { margin: 30px 0 14px; align-items: flex-end; }
+    .section-head h3 { font-size: 23px; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 13px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+    .editorial-card { border-top: 1px solid var(--line-strong); padding: 18px 2px 4px; }
+    .editorial-card h3 { margin: 0 0 8px; font: 500 21px/1.2 var(--serif); }
+    .editorial-card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .editorial-card .num { color: var(--terra); font: 500 27px/1 var(--serif); }
+    .price-ladder { display: grid; gap: 10px; }
+    .price-row { display: grid; grid-template-columns: 150px minmax(100px, .7fr) 1fr; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .price-tag { font-weight: 800; }
+    .price-tag small { display: block; color: var(--muted); font-size: 11px; font-weight: 500; margin-top: 2px; }
+    .price-bar { height: 10px; background: var(--paper-deep); border-radius: 999px; overflow: hidden; }
+    .price-bar span { display: block; height: 100%; border-radius: inherit; background: var(--terra); }
+    .price-row:nth-child(2) .price-bar span { background: var(--gold); }
+    .price-row:nth-child(3) .price-bar span { background: var(--moss); }
+    .price-row:nth-child(4) .price-bar span { background: var(--moss); }
+    .price-row:nth-child(5) .price-bar span { background: var(--plum); }
+    .price-row:nth-child(6) .price-bar span { background: var(--plum); }
+    .price-desc { font-size: 12px; color: var(--muted); }
+    .callout { margin-top: 19px; padding: 15px 17px; background: var(--gold-soft); border-left: 3px solid var(--gold); font-size: 13px; }
+
+    .filter-row { align-items: stretch; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 17px; }
+    .field { display: grid; gap: 6px; min-width: 165px; }
+    .field.search { min-width: min(360px, 100%); flex: 1 1 260px; }
+    .field label { font-size: 11px; letter-spacing: .04em; color: var(--muted); }
+    .field input, .field select { width: 100%; min-height: 40px; padding: 8px 11px; border: 1px solid var(--line-strong); border-radius: 10px; background: rgba(251, 248, 241, .78); color: var(--ink); }
+    .result-count { color: var(--muted); font-size: 12px; margin-left: auto; align-self: flex-end; padding-bottom: 10px; }
+    .brand-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+    .brand-list { display: grid; gap: 8px; }
+    .brand-item { display: grid; grid-template-columns: 45px minmax(140px, .8fr) minmax(160px, 1fr) minmax(130px, .8fr) 70px; align-items: center; gap: 12px; padding: 15px 12px; border-bottom: 1px solid var(--line); transition: background .18s ease, transform .18s ease; }
+    .brand-item:hover { background: rgba(251, 248, 241, .65); transform: translateX(3px); }
+    .brand-index { color: var(--terra); font: 500 21px/1 var(--serif); }
+    .brand-name { font-weight: 800; }
+    .brand-sub { color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .brand-copy { color: var(--muted); font-size: 12px; }
+    .pill { display: inline-flex; white-space: nowrap; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 999px; font-size: 11px; background: var(--terra-soft); color: var(--terra-deep); }
+    .pill.green { background: var(--moss-soft); color: #4b5a43; }
+    .pill.gold { background: var(--gold-soft); color: #7b5b2c; }
+    .pill.plum { background: var(--plum-soft); color: #5d4c5d; }
+    .detail { position: sticky; top: 20px; border-top: 2px solid var(--terra); padding: 20px 20px 18px; background: rgba(251, 248, 241, .72); box-shadow: var(--shadow); }
+    .detail[hidden] { display: none; }
+    .detail h3 { margin: 0; font: 500 27px/1.1 var(--serif); }
+    .detail p { color: var(--muted); font-size: 13px; }
+    .detail-top { align-items: flex-start; }
+    .close { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 20px; }
+    .detail dl { display: grid; grid-template-columns: 84px 1fr; gap: 7px 10px; margin: 16px 0 0; font-size: 12px; }
+    .detail dt { color: var(--muted); }
+    .detail dd { margin: 0; font-weight: 700; }
+    .legend { display: flex; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 11px; }
+    .legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; background: var(--terra); }
+    .legend .moss { background: var(--moss); }
+    .legend .gold { background: var(--gold); }
+    .legend .plum { background: var(--plum); }
+
+    .scenario-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .scenario { min-height: 240px; padding: 19px; border: 1px solid var(--line); border-radius: 17px; background: rgba(251, 248, 241, .6); display: flex; flex-direction: column; gap: 10px; }
+    .scenario:hover { border-color: var(--terra); box-shadow: 0 12px 25px rgba(65, 48, 28, .08); }
+    .scenario h3 { margin: 0; font: 500 20px/1.2 var(--serif); }
+    .scenario p { margin: 0; color: var(--muted); font-size: 12px; }
+    .scenario-footer { margin-top: auto; padding-top: 11px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; }
+    .scenario .marker { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+    .scenario .marker::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--terra); }
+    .scenario .marker.no::before { background: var(--moss); }
+
+    .intent-tabs { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
+    .intent { border: 1px solid var(--line-strong); background: transparent; border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 12px; }
+    .intent.active { background: var(--terra); border-color: var(--terra); color: var(--paper-soft); }
+    .keyword-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 25px; align-items: start; }
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 9px; align-content: flex-start; }
+    .keyword { border: 1px solid var(--line); padding: 8px 11px; border-radius: 8px; background: rgba(251, 248, 241, .62); cursor: pointer; font-size: 13px; }
+    .keyword:hover, .keyword.selected { background: var(--terra-soft); border-color: var(--terra); color: var(--terra-deep); }
+    .keyword-card { border-top: 2px solid var(--terra); padding: 18px 18px 12px; background: rgba(251, 248, 241, .68); }
+    .keyword-card h3 { margin: 0 0 8px; font: 500 24px var(--serif); }
+    .keyword-card p { margin: 0 0 13px; color: var(--muted); font-size: 13px; }
+    .keyword-card ul { margin: 0; padding-left: 19px; color: var(--muted); font-size: 12px; }
+    .selected-word { color: var(--terra-deep); font-weight: 800; }
+
+    .matrix { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .matrix th { color: var(--muted); font-size: 11px; text-align: left; letter-spacing: .04em; font-weight: 700; padding: 0 9px 10px; }
+    .matrix td { padding: 13px 9px; border-top: 1px solid var(--line); vertical-align: top; }
+    .matrix td:first-child { font-weight: 800; min-width: 160px; }
+    .matrix td:not(:first-child) { color: var(--muted); }
+    .chain { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin-top: 18px; counter-reset: chain; }
+    .chain-step { position: relative; padding: 16px 14px 14px; min-height: 105px; border-top: 2px solid var(--terra); border-right: 1px solid var(--line); background: rgba(251, 248, 241, .52); }
+    .chain-step:last-child { border-right: 0; }
+    .chain-step::before { counter-increment: chain; content: "0" counter(chain); display: block; color: var(--terra); font: 500 20px var(--serif); margin-bottom: 8px; }
+    .chain-step b { display: block; font-size: 12px; }
+    .chain-step span { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .sources { margin-top: 32px; border-top: 1px solid var(--line-strong); padding-top: 17px; }
+    .sources summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+    .source-list { columns: 2; column-gap: 34px; margin: 14px 0 0; padding-left: 18px; color: var(--muted); font-size: 11px; }
+    .source-list li { break-inside: avoid; margin-bottom: 6px; }
+    .source-list a { color: var(--terra-deep); text-decoration: none; }
+    .source-list a:hover { text-decoration: underline; }
+    .footer-row { margin-top: 37px; border-top: 1px solid var(--line); padding-top: 15px; color: var(--muted); font-size: 11px; align-items: flex-start; }
+    .footer-row strong { color: var(--ink); }
+    .empty { padding: 32px 0; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 1050px) {
+      .brand-layout, .keyword-layout { grid-template-columns: 1fr; }
+      .detail { position: static; }
+      .scenario-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      .app { padding: 19px 17px 40px; }
+      .topline { margin-bottom: 34px; }
+      .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .price-row { grid-template-columns: 1fr; gap: 6px; }
+      .brand-item { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 8px; }
+      .brand-item .brand-copy, .brand-item .brand-his { display: none; }
+      .brand-item .pill { justify-self: end; }
+      .scenario-grid { grid-template-columns: 1fr; }
+      .chain { grid-template-columns: 1fr 1fr; }
+      .chain-step { border-bottom: 1px solid var(--line); }
+      .source-list { columns: 1; }
+      .panel-head, .section-head { align-items: flex-start; flex-direction: column; gap: 7px; }
+      .result-count { margin-left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="app" id="medical-ai-map">
+    <header>
+      <div class="topline">
+        <div class="eyebrow"><span class="dot"></span>医疗 AI 行业地图 · 研究桌面</div>
+        <div class="quiet">中国大陆 · 2026.11.09</div>
+      </div>
+      <div class="hero">
+        <h1>从“会聊天”到<br><em>能落地</em>，医疗 AI 的下一站</h1>
+        <p class="hero-copy">一张面向产品、市场与商业化决策的行业地图：谁在做什么，谁来买单，哪些场景必须进入医院系统，哪些能力还停留在流量入口。</p>
+        <div class="meta-line">
+          <span class="badge"><strong>25</strong> 中国品牌</span>
+          <span class="badge"><strong>15</strong> 核心场景</span>
+          <span class="badge"><strong>6</strong> 价格层级</span>
+          <span class="badge"><strong>24</strong> 公开来源</span>
+        </div>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-note">
+          <div class="kicker">核心判断</div>
+          <p>高价值的医疗 Agent，不是更像医生的聊天框，而是更深地进入数据、系统与责任链。</p>
+        </div>
+        <div class="hero-axis" aria-label="从健康问答到药物研发的产品层级">
+          <div class="axis-title">从低风险服务到高价值工作流</div>
+          <div class="axis">
+            <div class="axis-node"><i></i><b>L0</b><span>问答</span></div>
+            <div class="axis-node"><i></i><b>L1</b><span>服务</span></div>
+            <div class="axis-node"><i></i><b>L2</b><span>Copilot</span></div>
+            <div class="axis-node"><i></i><b>L3</b><span>器械</span></div>
+            <div class="axis-node"><i></i><b>L4</b><span>医院级</span></div>
+            <div class="axis-node"><i></i><b>L5</b><span>药研</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="metrics" aria-label="报告摘要指标">
+      <div class="metric"><div class="metric-value">B2B</div><div class="metric-label">医院、卫健与药企是高客单核心</div></div>
+      <div class="metric"><div class="metric-value">HIS ≠ 入院</div><div class="metric-label">影像 AI 更多接 PACS/RIS/设备</div></div>
+      <div class="metric"><div class="metric-value">0 → 1000万+</div><div class="metric-label">从免费问答到院级平台预算</div></div>
+      <div class="metric"><div class="metric-value">15</div><div class="metric-label">个可拆分的真实业务场景</div></div>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="行业地图视图">
+      <button class="tab active" type="button" role="tab" aria-selected="true" aria-controls="overview-panel" data-tab="overview-panel">总览</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="brands-panel" data-tab="brands-panel">品牌地图</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="scenarios-panel" data-tab="scenarios-panel">场景竞品</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="keywords-panel" data-tab="keywords-panel">关键词意图</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="access-panel" data-tab="access-panel">准入与买单</button>
+    </nav>
+
+    <main>
+      <section class="panel" id="overview-panel" role="tabpanel">
+        <div class="panel-head">
+          <div><h2>先看结构，再看品牌</h2><p>医疗 AI 不是一个赛道，而是四个互相交叠的购买逻辑：患者服务、医院工作流、医疗器械和药企研发。</p></div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <div class="section-head"><h3>四种生意</h3><p>买单方决定产品形态</p></div>
+            <div class="grid-2">
+              <article class="editorial-card"><div class="num">01</div><h3>患者服务</h3><p>免费问答是入口，问诊、购药、会员、保险和家庭医生是转化层。核心是信任与真人兜底。</p></article>
+              <article class="editorial-card"><div class="num">02</div><h3>医院工作流</h3><p>病历、CDSS、处方、质控、随访、运营。系统集成和可量化 ROI 比模型炫技更重要。</p></article>
+              <article class="editorial-card"><div class="num">03</div><h3>影像器械</h3><p>产品进入 PACS、RIS 或设备工作站，价值来自效率、标准化、注册证和临床边界。</p></article>
+              <article class="editorial-card"><div class="num">04</div><h3>药企研发</h3><p>靶点、分子、蛋白、临床试验和 RWE。客单价高，但数据权属、IP 和验证周期更长。</p></article>
+            </div>
+          </div>
+          <div>
+            <div class="section-head"><h3>价格不是一条曲线</h3><p>公开报价少，以下用于预算分层</p></div>
+            <div class="price-ladder">
+              <div class="price-row"><div class="price-tag">P0 <small>免费获客</small></div><div class="price-bar"><span style="width:12%"></span></div><div class="price-desc">健康问答、报告初步解释、就医导航</div></div>
+              <div class="price-row"><div class="price-tag">P1 <small>¥9.9–99/次</small></div><div class="price-bar"><span style="width:25%"></span></div><div class="price-desc">轻问诊、AI+真人、单次用药咨询</div></div>
+              <div class="price-row"><div class="price-tag">P2 <small>¥100–2,000</small></div><div class="price-bar"><span style="width:39%"></span></div><div class="price-desc">专科咨询、家庭医生、慢病/重疾服务包</div></div>
+              <div class="price-row"><div class="price-tag">P3 <small>数十万–百万元</small></div><div class="price-bar"><span style="width:56%"></span></div><div class="price-desc">科室级 CDSS、病历、随访、处方审核</div></div>
+              <div class="price-row"><div class="price-tag">P4 <small>数百万元+</small></div><div class="price-bar"><span style="width:76%"></span></div><div class="price-desc">院级/区域级平台、影像与数据中台</div></div>
+              <div class="price-row"><div class="price-tag">P5 <small>药企项目制</small></div><div class="price-bar"><span style="width:92%"></span></div><div class="price-desc">AI 制药、RWE、实验闭环、里程碑合作</div></div>
+            </div>
+            <div class="callout">医院项目的真实成本往往是：模型/算法许可 + 数据治理 + 接口 + 私有化算力 + 临床验证 + 安全审计 + 年度运维。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="brands-panel" role="tabpanel" hidden>
+        <div class="panel-head"><div><h2>品牌地图</h2><p>按产品形态、买单方与系统准入筛选。点击品牌可查看简要画像。</p></div></div>
+        <div class="filter-row" aria-label="品牌筛选">
+          <div class="field search"><label for="brand-search">搜索品牌 / 产品 / 场景</label><input id="brand-search" type="search" placeholder="例如：影像、HIS、药企、讯飞"></div>
+          <div class="field"><label for="brand-type">产品类型</label><select id="brand-type"><option value="all">全部类型</option><option value="C端">C 端 / 互联网医疗</option><option value="院内">院内临床 / 信息化</option><option value="影像">影像 / 器械软件</option><option value="药企">药企 / 生命科学</option></select></div>
+          <div class="field"><label for="brand-payer">主要买单方</label><select id="brand-payer"><option value="all">全部买单方</option><option value="患者">患者 / 保险 / 企业</option><option value="医院">医院 / 卫健 / 医共体</option><option value="药企">药企 / 生物科技</option></select></div>
+          <div class="field"><label for="brand-his">系统准入</label><select id="brand-his"><option value="all">全部准入</option><option value="yes">强 HIS / EMR</option><option value="pacs">PACS / RIS / 设备</option><option value="no">不以 HIS 为入口</option></select></div>
+          <div class="result-count" id="brand-count" aria-live="polite"></div>
+        </div>
+        <div class="brand-layout">
+          <div>
+            <div class="brand-item" style="border-top:1px solid var(--line-strong); color:var(--muted); font-size:11px; font-weight:700;"><span>#</span><span>品牌</span><span>主力产品 / 场景</span><span>主要买单方</span><span>准入</span></div>
+            <div class="brand-list" id="brand-list"></div>
+          </div>
+          <aside class="detail" id="brand-detail" hidden aria-live="polite"></aside>
+        </div>
+      </section>
+
+      <section class="panel" id="scenarios-panel" role="tabpanel" hidden>
+        <div class="panel-head"><div><h2>场景竞品</h2><p>从需求出发，比“谁的模型更大”更接近真实采购决策。</p></div></div>
+        <div class="filter-row">
+          <div class="field"><label for="scenario-integration">准入方式</label><select id="scenario-integration"><option value="all">全部方式</option><option value="hospital">需入院 / 接系统</option><option value="platform">平台或数据接入</option><option value="consumer">可独立 C 端使用</option></select></div>
+          <div class="field"><label for="scenario-payer">买单方</label><select id="scenario-payer"><option value="all">全部买单方</option><option value="hospital">医院 / 卫健</option><option value="patient">患者 / 保险 / 企业</option><option value="pharma">药企 / 科研</option></select></div>
+          <div class="result-count" id="scenario-count" aria-live="polite"></div>
+        </div>
+        <div class="scenario-grid" id="scenario-grid"></div>
+      </section>
+
+      <section class="panel" id="keywords-panel" role="tabpanel" hidden>
+        <div class="panel-head"><div><h2>关键词意图</h2><p>把搜索需求拆成广告、科普、评测与种草，分别对应不同的内容和转化动作。</p></div></div>
+        <div class="intent-tabs" role="tablist" aria-label="关键词意图分类">
+          <button class="intent active" type="button" data-intent="广告">广告 / 采购</button>
+          <button class="intent" type="button" data-intent="科普">科普 / 信任</button>
+          <button class="intent" type="button" data-intent="评测">评测 / 比较</button>
+          <button class="intent" type="button" data-intent="种草">种草 / 场景</button>
+        </div>
+        <div class="keyword-layout">
+          <div><div class="keyword-cloud" id="keyword-cloud"></div><p class="quiet" style="margin-top:16px">点击词条，右侧查看对应的落地页建议。关键词为种子词，不代表搜索量排名。</p></div>
+          <aside class="keyword-card" id="keyword-detail" aria-live="polite"></aside>
+        </div>
+      </section>
+
+      <section class="panel" id="access-panel" role="tabpanel" hidden>
+        <div class="panel-head"><div><h2>准入与买单</h2><p>判断一个产品能否卖进医疗场景，关键在于它要接入哪条责任链。</p></div></div>
+        <div class="table-responsive">
+          <table class="matrix" aria-label="产品类型与准入买单关系"><thead><tr><th>产品类型</th><th>谁来买单</th><th>是否入院 / HIS</th><th>常见交付与收费</th><th>关键门槛</th></tr></thead><tbody>
+            <tr><td>健康问答 / C 端助手</td><td>患者、保险、企业</td><td>否；医院合作版除外</td><td>免费获客、会员、单次服务、B2B2C</td><td>信任、隐私、真人兜底、转化</td></tr>
+            <tr><td>医院患者服务</td><td>医院、卫健、患者</td><td>通常接预约、挂号、患者门户和 HIS</td><td>项目制、服务包、年维护</td><td>流程闭环、接口、服务体验</td></tr>
+            <tr><td>临床 Copilot / CDSS</td><td>医院、医共体、卫健</td><td><strong>通常需要 EMR / HIS / 集成平台</strong></td><td>科室/院级软件许可 + 集成 + 运维</td><td>可追溯、医生确认、临床验证、ROI</td></tr>
+            <tr><td>影像 AI / 医疗器械软件</td><td>医院、影像中心、设备商</td><td>主要接 PACS / RIS / 设备，HIS 非必需</td><td>软件授权、按设备/病例、设备捆绑</td><td>注册证、泛化能力、工作站体验</td></tr>
+            <tr><td>医院运营 / 区域治理</td><td>医院集团、卫健委、政府</td><td><strong>需要院级/区域多系统集成</strong></td><td>招投标、总包、专项预算、年运维</td><td>数据治理、权限、安全、复制性</td></tr>
+            <tr><td>AI 制药 / RWE</td><td>药企、生物科技、CRO</td><td>不以 HIS 为入口</td><td>项目制、订阅、联合研发、里程碑</td><td>数据权属、IP、验证、实验闭环</td></tr>
+          </tbody></table>
+        </div>
+        <div class="section-head"><h3>医院准入链条</h3><p>技术能力只是其中一段</p></div>
+        <div class="chain" aria-label="医院采购与上线流程">
+          <div class="chain-step"><b>临床提出问题</b><span>从科室痛点开始，而不是从模型开始</span></div>
+          <div class="chain-step"><b>信息科评估</b><span>数据、接口、权限、网络和部署</span></div>
+          <div class="chain-step"><b>医务/伦理审核</b><span>责任边界、临床风险和产品用途</span></div>
+          <div class="chain-step"><b>立项/招采</b><span>预算、采购方式、供应商与合同</span></div>
+          <div class="chain-step"><b>试点验证</b><span>效率、质量、安全、使用率和 ROI</span></div>
+          <div class="chain-step"><b>扩科/扩院</b><span>年维护、模型复评和持续运营</span></div>
+        </div>
+        <div class="callout">“入院”不等于“入 HIS”：影像产品常驻 PACS/RIS/设备工作站；药企研发产品常驻临床研究、组学和实验室系统；真正强 HIS 的通常是临床、病历、处方、质量与运营产品。</div>
+      </section>
+    </main>
+
+    <details class="sources">
+      <summary>查看报告来源（24 条）</summary>
+      <ol class="source-list">
+        <li>[S1] <a href="https://www.nhc.gov.cn/guihuaxxs/c100133/202511/d1a42ae835c743b9b3e83ac0253c3e9f.shtml" target="_blank" rel="noreferrer">国家卫健委：人工智能+医疗卫生实施意见</a></li>
+        <li>[S2] <a href="https://www.cmde.org.cn/flfg/zdyz/zdyzwbk/20220309091014461.html" target="_blank" rel="noreferrer">国家器审中心：AI 医疗器械注册审查指导原则</a></li>
+        <li>[S3] <a href="https://wjw.sz.gov.cn/wzx/content/post_12066872.html" target="_blank" rel="noreferrer">深圳市卫健委：近 450 个 AI+医疗产品落地</a></li>
+        <li>[S4] <a href="https://www.xunfeihealthcare.com/" target="_blank" rel="noreferrer">讯飞医疗</a></li>
+        <li>[S5] <a href="https://www.winning.com.cn/" target="_blank" rel="noreferrer">卫宁健康</a></li>
+        <li>[S6] <a href="https://www.huimei.com/" target="_blank" rel="noreferrer">惠每科技</a></li>
+        <li>[S7] <a href="https://www.shukun.com/" target="_blank" rel="noreferrer">数坤科技</a></li>
+        <li>[S8] <a href="https://www.deepwise.com/" target="_blank" rel="noreferrer">深睿医疗</a></li>
+        <li>[S9] <a href="https://www.infervision.com/" target="_blank" rel="noreferrer">推想医疗</a></li>
+        <li>[S10] <a href="https://www.huiyihuiying.com/" target="_blank" rel="noreferrer">汇医慧影</a></li>
+        <li>[S11] <a href="https://www.yitutech.com/solution/医疗大数据智能" target="_blank" rel="noreferrer">依图科技：医疗大数据智能</a></li>
+        <li>[S12] <a href="https://www.uii-ai.com/" target="_blank" rel="noreferrer">联影智能</a></li>
+        <li>[S13] <a href="https://www.neusoft.com/" target="_blank" rel="noreferrer">东软集团</a></li>
+        <li>[S14] <a href="https://www.yidutech.com/" target="_blank" rel="noreferrer">医渡科技</a></li>
+        <li>[S15] <a href="https://ai.baidu.com/industry/healthcare" target="_blank" rel="noreferrer">百度 AI 智能医疗</a></li>
+        <li>[S16] <a href="https://jiankang.baidu.com/" target="_blank" rel="noreferrer">百度健康</a></li>
+        <li>[S17] <a href="https://open.healthjd.com/" target="_blank" rel="noreferrer">京东健康开放平台</a></li>
+        <li>[S18] <a href="https://www.pagd.net/" target="_blank" rel="noreferrer">平安好医生</a></li>
+        <li>[S19] <a href="https://www.medlinker.com/" target="_blank" rel="noreferrer">医联 / Medlinker</a></li>
+        <li>[S20] <a href="https://www.chunyuyisheng.com/" target="_blank" rel="noreferrer">春雨医生</a></li>
+        <li>[S21] <a href="https://www.xtalpi.com/" target="_blank" rel="noreferrer">晶泰科技</a></li>
+        <li>[S22] <a href="https://insilico.com/" target="_blank" rel="noreferrer">英矽智能</a></li>
+        <li>[S23] <a href="https://finance.sina.com.cn/roll/2025-06-08/doc-inezkivv8237987.shtml" target="_blank" rel="noreferrer">医院 AI 大模型采购案例</a></li>
+        <li>[S24] <a href="https://www.dp.tech/product/hermite" target="_blank" rel="noreferrer">深势科技 Hermite</a></li>
+      </ol>
+    </details>
+
+    <footer class="footer-row"><div><strong>医疗 AI 智能体行业地图</strong><br>暖米色、砖红与深棕的编辑式研究桌面</div><div>价格为规划级预算带；品牌池不是营收排名；正式采购请逐项核验注册证、合同与中标公告。</div></footer>
+  </div>
+
+  <script>
+    const brands = [
+      {n:1, name:'讯飞医疗', sub:'讯飞晓医 · 智医助理', type:'C端', payer:'患者', his:'platform', product:'健康助手、基层辅助诊疗、智慧医院、全程患者管理', scene:'患者服务 / 基层 / 医院', buy:'患者、医院、基层、卫健', access:'C 端不需要；院内通常接 EMR/HIS/患者服务系统', source:'S4'},
+      {n:2, name:'京东健康', sub:'AI 京医 · 京医千询', type:'C端', payer:'患者', his:'platform', product:'AI 医生/药师/营养师、预问诊、购药、AI 医院', scene:'患者服务 / 药事 / 医院', buy:'患者、企业、医院', access:'C 端不需要；医院方案按场景接入院内系统', source:'S17'},
+      {n:3, name:'百度健康 / 灵医智惠', sub:'AI 管家 · 灵医开放平台', type:'C端', payer:'患者', his:'platform', product:'健康助手、报告解读、临床辅助、眼底影像、慢病', scene:'患者服务 / 临床 / 慢病', buy:'患者、医院、区域卫生', access:'C 端不需要；院内产品需数据与业务集成', source:'S15'},
+      {n:4, name:'平安好医生', sub:'7+N+1 AI 医疗产品矩阵', type:'C端', payer:'患者', his:'no', product:'在线问诊、家庭医生、重疾陪伴、保险协同', scene:'患者服务 / 家庭医生 / 慢病', buy:'患者、保险、企业', access:'C 端不需要；医院端可接互联网医院', source:'S18'},
+      {n:5, name:'春雨医生', sub:'春雨慧问 · 在线问诊', type:'C端', payer:'患者', his:'no', product:'轻问诊、前置咨询、医生推荐、线上购药', scene:'患者服务 / 问诊', buy:'患者、企业健康客户', access:'互联网医疗链路为主，不以 HIS 为核心', source:'S20'},
+      {n:6, name:'医联 / Medlinker', sub:'MedGPT · DoctorWorks.AI', type:'C端', payer:'患者', his:'platform', product:'医生知识助手、在线问诊、患者管理、互联网医院', scene:'医生服务 / 患者 / 慢病', buy:'患者、医院、医生、药企', access:'平台可独立使用；医院项目按接口接入', source:'S19'},
+      {n:7, name:'微医', sub:'AI 医院 · AI 药师 · 健共体', type:'C端', payer:'患者', his:'yes', product:'分级诊疗、在线处方、基层协同、云药房', scene:'区域 / 基层 / 药事', buy:'政府、医院、保险、患者', access:'健共体和智能医院需 HIS/EMR/区域平台协同', source:'—'},
+      {n:8, name:'好大夫在线', sub:'医生与医院服务平台', type:'C端', payer:'患者', his:'no', product:'专家匹配、图文/电话/视频问诊、复诊', scene:'患者服务 / 专家服务', buy:'患者、医院、医生生态', access:'以平台和服务为主；AI 边界需按版本核验', source:'—'},
+      {n:9, name:'丁香园 / 丁香医生', sub:'医学内容 · 医生社区', type:'C端', payer:'患者', his:'no', product:'专业知识、科普、医生教育、数字健康服务', scene:'科普 / 医生教育 / 患者教育', buy:'患者、医生、药企、机构', access:'通常不进核心 HIS，可做知识或患者教育接口', source:'—'},
+      {n:10, name:'阿里健康', sub:'医疗服务 · 医药电商 · 云医疗', type:'C端', payer:'患者', his:'platform', product:'在线医疗、购药、健康消费、医疗机构数字化', scene:'患者服务 / 医药零售', buy:'患者、药企、医院、商保', access:'C 端不需要；机构方案依赖具体集成', source:'—'},
+      {n:11, name:'卫宁健康', sub:'WiNGPT · WiNEX Copilot', type:'院内', payer:'医院', his:'yes', product:'临床 Copilot、智慧医院、区域卫生、互联网医疗', scene:'院内临床 / 运营 / 区域', buy:'医院、卫健、医共体', access:'强 HIS/EMR 属性，嵌入医疗业务流程', source:'S5'},
+      {n:12, name:'惠每科技', sub:'Dr. Mayson · CDSS', type:'院内', payer:'医院', his:'yes', product:'临床决策、病历质控、医保审核、单病种路径', scene:'临床 / 质控 / 医保', buy:'医院、医共体、卫健', access:'进入医院信息生态，实时辅助医护', source:'S6'},
+      {n:13, name:'数坤科技', sub:'数字医生 · 数字心/脑/人体', type:'影像', payer:'医院', his:'pacs', product:'心脑血管、肿瘤、筛查、辅助诊断、治疗决策', scene:'影像 / 专病 / 器械软件', buy:'医院、影像科、设备商', access:'主要接 PACS/RIS/影像设备；HIS 视场景', source:'S7'},
+      {n:14, name:'深睿医疗', sub:'Deepwise MetAI · 智慧影像云', type:'影像', payer:'医院', his:'pacs', product:'放射、超声、内镜、病理、远程阅片、科研', scene:'影像 / 影像中心 / 科研', buy:'医院、影像中心、基层', access:'以 PACS/RIS/影像云为主', source:'S8'},
+      {n:15, name:'推想医疗', sub:'InferRead · InferMatrix', type:'影像', payer:'医院', his:'pacs', product:'CT 筛查、肺部/胸部、MDT、影像科研', scene:'影像 / 专病 / 早筛', buy:'医院、影像科、设备商', access:'主要接 PACS/RIS/设备；需核验注册证', source:'S9'},
+      {n:16, name:'汇医慧影', sub:'NovaCloud · 影像数据中台', type:'影像', payer:'医院', his:'pacs', product:'AI 辅助诊断、科研平台、数据治理、远程诊断', scene:'影像 / 科研 / 数据', buy:'医院、影像中心、药企', access:'主要接影像数据和 PACS/RIS', source:'S10'},
+      {n:17, name:'联影智能', sub:'元智多模态医疗大模型', type:'影像', payer:'医院', his:'platform', product:'影像、临床、科教、管理、患者智能体', scene:'影像 / 临床 / 设备生态', buy:'医院、设备客户、科研机构', access:'按场景接 PACS/RIS、设备、EMR/HIS', source:'S12'},
+      {n:18, name:'东软集团 / 东软医疗', sub:'HAIAs 健康医疗智能体', type:'院内', payer:'医院', his:'yes', product:'临床辅助、患者服务、监管、科研、影像设备', scene:'院内 / 区域 / 设备', buy:'医院、区域卫生、政府', access:'健康智能体面向核心业务流；设备端接影像流程', source:'S13'},
+      {n:19, name:'创业慧康', sub:'HI-HIS · MedCopilot', type:'院内', payer:'医院', his:'yes', product:'HIS/EMR/PACS、预问诊、病历、关键患者追踪', scene:'HIS / 医共体 / 就医', buy:'医院、医共体、卫健', access:'强 HIS/EMR 属性，AI 是整体方案一部分', source:'—'},
+      {n:20, name:'医渡科技', sub:'YiduCore · RWE', type:'院内', payer:'药企', his:'platform', product:'医疗大数据、临床研究、RWE、数字疗法', scene:'科研 / 药企 / 疾病管理', buy:'医院、药企、政府、科研', access:'接 EMR/CDW/研究数据，不一定进临床一线 HIS', source:'S14'},
+      {n:21, name:'腾讯健康 / 腾讯医疗', sub:'互联网医疗与云生态', type:'院内', payer:'医院', his:'platform', product:'患者服务、健康、医疗数据和大模型生态', scene:'患者服务 / 医院 / 区域', buy:'患者、医院、政府、企业', access:'C 端不需要；医院/区域项目按接口接入', source:'—'},
+      {n:22, name:'晶泰科技 XtalPi', sub:'PatSight · XFEP · XMolGen', type:'药企', payer:'药企', his:'no', product:'靶点/专利、分子设计、自由能、实验机器人', scene:'AI 制药 / 生物药 / 湿实验', buy:'药企、生物科技、CRO', access:'不以 HIS 为入口，接化学/组学/实验室系统', source:'S21'},
+      {n:23, name:'英矽智能 Insilico', sub:'PandaOmics · Chemistry42', type:'药企', payer:'药企', his:'no', product:'靶点发现、生成式化学、临床预测、药物研发', scene:'AI 制药 / 临床 / 组学', buy:'药企、生物科技、科研', access:'不直接接 HIS，使用合规临床/组学/文献数据', source:'S22'},
+      {n:24, name:'百图生科 BioMap', sub:'xTrimo · 蛋白/生物药设计', type:'药企', payer:'药企', his:'no', product:'蛋白质设计、AAV、抗体/生物药、免疫机器人', scene:'AI 制药 / 蛋白 / 生物计算', buy:'药企、生物科技、科研', access:'不以 HIS 为入口，重点是序列/结构/实验', source:'—'},
+      {n:25, name:'深势科技 DP Technology', sub:'Hermite · AI4S', type:'药企', payer:'药企', his:'no', product:'蛋白结构、药靶结合、分子模拟、临床前研发', scene:'AI 制药 / 计算化学 / 科研', buy:'药企、生物科技、科研', access:'不直接接 HIS，接计算平台和实验数据', source:'S24'}
+    ];
+
+    const scenarios = [
+      {title:'智能预问诊与分诊', need:'就诊前采集症状、识别紧急程度、推荐科室和资源。', comp:'讯飞医疗、百度健康、京东健康、创业慧康、微医', payer:'医院 / 卫健', integration:'hospital', tags:['HIS / 预约','院内服务']},
+      {title:'检查检验报告解读', need:'把医学术语翻成可理解信息，给出复查与就医提示。', comp:'讯飞晓医、百度健康、AI 京医、平安好医生', payer:'患者 / 保险 / 企业', integration:'consumer', tags:['LIS / PACS','报告解释']},
+      {title:'在线问诊与 AI+真人', need:'降低轻问诊成本，复杂病例转真人或线下。', comp:'京东健康、平安好医生、春雨医生、微医、医联', payer:'患者 / 保险 / 企业', integration:'consumer', tags:['真人兜底','服务转化']},
+      {title:'家庭医生 / 慢病管理', need:'长期提醒、指标追踪、随访、依从性和家属协同。', comp:'平安好医生、微医、讯飞医疗、百度健康、医联', payer:'患者 / 保险 / 企业', integration:'platform', tags:['健康档案','长期服务']},
+      {title:'医生临床 Copilot', need:'病历、病程、出院小结、指南问答和鉴别诊断提示。', comp:'卫宁、惠每、讯飞、东软、京东卓医', payer:'医院 / 卫健', integration:'hospital', tags:['EMR / HIS','医生确认']},
+      {title:'病历质控 / DIP-DRG', need:'降低缺陷、提升编码和医保合规，识别异常费用。', comp:'惠每、卫宁、创业慧康、东软、医渡', payer:'医院 / 卫健', integration:'hospital', tags:['强 HIS','运营 ROI']},
+      {title:'AI 影像辅助诊断', need:'早筛、病灶检测、分割、定量、结构化报告和急症告警。', comp:'数坤、深睿、推想、汇医慧影、联影、东软医疗', payer:'医院 / 卫健', integration:'hospital', tags:['PACS / RIS','注册证']},
+      {title:'AI 超声 / 内镜 / 病理', need:'实时提示、质控、标准化，减少医生之间的差异。', comp:'联影、数坤、深睿、推想、专科设备厂商', payer:'医院 / 卫健', integration:'hospital', tags:['设备工作站','实时辅助']},
+      {title:'AI 药师 / 处方审核', need:'识别相互作用、禁忌和用药风险，形成用药教育。', comp:'微医、惠每、京东健康、医院自研', payer:'医院 / 卫健', integration:'hospital', tags:['HIS / 药房','高风险']},
+      {title:'患者全病程 / 重疾管家', need:'从筛查、诊断、治疗到康复，减少失联和信息不对称。', comp:'平安好医生、讯飞、微医、医联、百度健康', payer:'患者 / 保险 / 企业', integration:'platform', tags:['B2B2C','全周期']},
+      {title:'临床科研与 RWE', need:'队列构建、病例筛选、文献综述、数据分析和随访。', comp:'医渡、汇医慧影、东软、医联、深睿', payer:'药企 / 科研', integration:'platform', tags:['EMR / CDW','数据授权']},
+      {title:'临床试验匹配', need:'从病例中匹配入组标准，减少人工筛选和沟通成本。', comp:'医渡、医联、医院科研平台、药企自建', payer:'药企 / 科研', integration:'platform', tags:['研究数据','脱敏审计']},
+      {title:'AI 制药与分子/蛋白设计', need:'减少候选筛选与实验迭代，缩短临床前研发。', comp:'晶泰、英矽、百图、深势、Recursion', payer:'药企 / 科研', integration:'platform', tags:['不接 HIS','IP / 实验']},
+      {title:'医学教育与知识服务', need:'病例教学、指南检索、考试和继续教育。', comp:'丁香园、讯飞、京东、医联、东软', payer:'医院 / 卫健', integration:'consumer', tags:['知识库','医生教育']},
+      {title:'医院运营与区域治理', need:'床位、手术室、药房、质量安全、转诊和资源配置。', comp:'卫宁、东软、创业慧康、微医、医渡', payer:'医院 / 卫健', integration:'hospital', tags:['区域平台','多系统']}
+    ];
+
+    const keywordGroups = {
+      广告: {desc:'高转化的采购或服务词，适合落地到产品页、咨询表单和销售线索。', cta:'落地页建议：产品能力 + 案例 + 接口/注册证 + 预约咨询。', words:['AI 医生在线问诊','免费 AI 医生','检查报告 AI 解读','AI 药师','慢病管理 AI','肿瘤管家','医院 AI 智能体','医疗大模型私有化部署','HIS AI 助手','临床决策支持系统 CDSS','医疗病历质控 AI','DRG/DIP AI 质控','AI 处方审核系统','医学影像 AI 辅助诊断','PACS AI','智能随访系统','AI 制药平台','AI 靶点发现','临床试验患者匹配 AI','RWE 平台']},
+      科普: {desc:'先解决“不理解”和“不信任”，适合做解释型文章、短视频和 FAQ。', cta:'落地页建议：解释边界 + 真实案例 + 医生/监管来源 + 风险提示。', words:['医疗 AI 是什么','AI 医生靠谱吗','AI 能不能诊断疾病','医疗大模型和普通大模型区别','AI 看检查报告准确吗','AI 影像辅助诊断是什么','CDSS 是什么','HIS EMR PACS RIS 有什么区别','医疗 AI 需要什么数据','医疗 AI 是否会泄露隐私','医疗 AI 医疗器械注册证是什么','NMPA 三类证和二类证区别','AI 制药是什么','真实世界研究 RWE 是什么']},
+      评测: {desc:'用户已经在比较方案，适合做竞品对比、试用报告、采购清单和评测框架。', cta:'落地页建议：指标口径 + 场景实测 + 系统兼容 + 价格/交付说明。', words:['AI 医生哪个好','AI 医生对比','讯飞晓医 vs AI 京医','百度健康 AI 管家 vs 讯飞晓医','医疗大模型评测','医疗大模型准确率','医疗 AI 厂商排名','CDSS 厂商对比','医疗病历生成系统对比','医学影像 AI 厂商对比','肺结节 AI 哪家好','AI 影像 NMPA 三类证','医疗 AI 私有化部署价格','医院 AI 大模型采购预算','AI 制药平台对比','AI 分子设计平台价格']},
+      种草: {desc:'用户以具体生活或工作场景表达需求，适合做案例、教程和产品演示。', cta:'落地页建议：一眼看懂的前后对比 + 低门槛体验 + 场景清单。', words:['一键看懂体检报告','手机拍照看化验单','家庭健康 AI 助手','AI 帮我判断挂什么科','AI 帮我整理就诊问题','长辈用的健康 AI','儿童健康助手','肿瘤患者 AI 陪诊','术后康复 AI','孕产妇健康 AI','老人慢病提醒','AI 药盒','医生写病历 AI 工具','医生查指南 AI','影像科 AI 读片助手','医院 AI 随访助手','药企医学部 AI 助手']}
+    };
+
+    const sourceNames = {S4:'讯飞医疗',S5:'卫宁健康',S6:'惠每科技',S7:'数坤科技',S8:'深睿医疗',S9:'推想医疗',S10:'汇医慧影',S12:'联影智能',S13:'东软集团',S14:'医渡科技',S15:'百度 AI',S17:'京东健康',S18:'平安好医生',S19:'医联',S20:'春雨医生',S21:'晶泰科技',S22:'英矽智能',S24:'深势科技'};
+    const $ = (selector, root=document) => root.querySelector(selector);
+    const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+
+    function typeClass(type) { return type === '院内' ? 'green' : type === '影像' ? 'gold' : type === '药企' ? 'plum' : ''; }
+    function hisLabel(his) { return his === 'yes' ? 'HIS' : his === 'pacs' ? 'PACS' : his === 'no' ? '无' : '平台'; }
+    function matchesBrand(b, query, type, payer, his) {
+      const hay = [b.name,b.sub,b.product,b.scene,b.buy,b.access].join(' ').toLowerCase();
+      return (!query || hay.includes(query.toLowerCase())) && (type === 'all' || b.type === type) && (payer === 'all' || (payer === '患者' && b.payer === '患者') || (payer === '医院' && b.payer === '医院') || (payer === '药企' && b.payer === '药企')) && (his === 'all' || b.his === his);
+    }
+    function renderBrands() {
+      const query = $('#brand-search').value.trim();
+      const type = $('#brand-type').value;
+      const payer = $('#brand-payer').value;
+      const his = $('#brand-his').value;
+      const list = brands.filter(b => matchesBrand(b,query,type,payer,his));
+      $('#brand-count').textContent = `显示 ${list.length} / ${brands.length} 个品牌`;
+      const root = $('#brand-list');
+      root.innerHTML = list.length ? list.map(b => `<button class="brand-item" type="button" data-brand="${b.n}" aria-label="查看 ${b.name} 详情"><span class="brand-index">${String(b.n).padStart(2,'0')}</span><span><span class="brand-name">${b.name}</span><span class="brand-sub">${b.sub}</span></span><span class="brand-copy">${b.product}</span><span class="brand-copy">${b.buy}</span><span class="pill ${typeClass(b.type)} brand-his">${hisLabel(b.his)}</span></button>`).join('') : '<div class="empty">没有匹配项。试试“影像”“药企”或“医院”。</div>';
+      $$('[data-brand]', root).forEach(btn => btn.addEventListener('click', () => showBrand(Number(btn.dataset.brand))));
+    }
+    function showBrand(id) {
+      const b = brands.find(x => x.n === id); if (!b) return;
+      const detail = $('#brand-detail'); detail.hidden = false;
+      detail.innerHTML = `<div class="detail-top"><div><div class="kicker">品牌画像 · ${String(b.n).padStart(2,'0')}</div><h3>${b.name}</h3></div><button class="close" type="button" aria-label="关闭详情">×</button></div><p>${b.sub}</p><dl><dt>产品</dt><dd>${b.product}</dd><dt>核心场景</dt><dd>${b.scene}</dd><dt>主要买单</dt><dd>${b.buy}</dd><dt>准入方式</dt><dd>${b.access}</dd><dt>报告来源</dt><dd>${sourceNames[b.source] || b.source}</dd></dl>`;
+      $('.close', detail).addEventListener('click', () => detail.hidden = true);
+      detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+    function renderScenarios() {
+      const integration = $('#scenario-integration').value;
+      const payer = $('#scenario-payer').value;
+      const list = scenarios.filter(s => (integration === 'all' || s.integration === integration) && (payer === 'all' || (payer === 'hospital' && s.payer === '医院 / 卫健') || (payer === 'patient' && s.payer === '患者 / 保险 / 企业') || (payer === 'pharma' && s.payer === '药企 / 科研')));
+      $('#scenario-count').textContent = `显示 ${list.length} / ${scenarios.length} 个场景`;
+      $('#scenario-grid').innerHTML = list.length ? list.map(s => `<article class="scenario"><div><span class="kicker">场景</span><h3>${s.title}</h3></div><p>${s.need}</p><p><strong>竞品：</strong>${s.comp}</p><div class="scenario-footer"><span class="marker ${s.integration === 'consumer' ? 'no' : ''}">${s.integration === 'hospital' ? '需入院 / 系统' : s.integration === 'platform' ? '平台或数据接入' : '可独立 C 端使用'}</span>${s.tags.map(t => `<span class="pill">${t}</span>`).join('')}</div></article>`).join('') : '<div class="empty">没有匹配场景。换一个准入方式或买单方。</div>';
+    }
+    function renderKeywords(intent='广告') {
+      const g = keywordGroups[intent];
+      $$('.intent').forEach(btn => { const on = btn.dataset.intent === intent; btn.classList.toggle('active',on); btn.setAttribute('aria-selected',on); });
+      $('#keyword-cloud').innerHTML = g.words.map((word,i) => `<button class="keyword" type="button" data-word-index="${i}">${word}</button>`).join('');
+      $('#keyword-detail').innerHTML = `<div class="kicker">${intent}意图</div><h3>${intent}关键词</h3><p>${g.desc}</p><ul><li>${g.cta}</li><li>核心动作：${intent === '广告' ? '咨询 / 试用 / 预约演示' : intent === '科普' ? '阅读 / 收藏 / 建立信任' : intent === '评测' ? '对比 / 下载清单 / 申请试用' : '体验 / 分享 / 场景转化'}</li></ul>`;
+      $$('.keyword').forEach(btn => btn.addEventListener('click', () => { $$('.keyword').forEach(x => x.classList.remove('selected')); btn.classList.add('selected'); $('.keyword-card h3').innerHTML = `<span class="selected-word">${btn.textContent}</span>`; $('.keyword-card p').textContent = g.cta; }));
+    }
+    function setupTabs() {
+      $$('.tab').forEach(btn => btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        $$('.tab').forEach(x => { const on = x === btn; x.classList.toggle('active',on); x.setAttribute('aria-selected',on); });
+        $$('.panel').forEach(p => p.hidden = p.id !== target);
+      }));
+    }
+    $('#brand-search').addEventListener('input', renderBrands);
+    $('#brand-type').addEventListener('change', renderBrands);
+    $('#brand-payer').addEventListener('change', renderBrands);
+    $('#brand-his').addEventListener('change', renderBrands);
+    $('#scenario-integration').addEventListener('change', renderScenarios);
+    $('#scenario-payer').addEventListener('change', renderScenarios);
+    $$('.intent').forEach(btn => btn.addEventListener('click', () => renderKeywords(btn.dataset.intent)));
+    setupTabs(); renderBrands(); renderScenarios(); renderKeywords();
+  </script>
+</body>
+</html>
