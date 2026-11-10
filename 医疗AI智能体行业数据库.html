@@ -179,6 +179,38 @@
     .keyword-card ul { margin: 0; padding-left: 19px; color: var(--muted); font-size: 12px; }
     .selected-word { color: var(--terra-deep); font-weight: 800; }
 
+    .dual-intro { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; margin-bottom: 24px; }
+    .dual-definition, .dual-signal { padding: 20px; border: 1px solid var(--line); background: rgba(251, 248, 241, .62); }
+    .dual-definition { border-top: 2px solid var(--terra); }
+    .dual-definition h3, .dual-signal h3 { margin: 0 0 8px; font: 500 22px/1.2 var(--serif); }
+    .dual-definition p, .dual-signal p { margin: 0; color: var(--muted); font-size: 13px; }
+    .dual-definition strong { color: var(--ink); }
+    .dual-signal { border-top: 2px solid var(--moss); }
+    .dual-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin: 22px 0 28px; }
+    .dual-flow-step { position: relative; padding: 15px 13px 14px; min-height: 112px; border-top: 2px solid var(--terra); border-right: 1px solid var(--line); background: rgba(251, 248, 241, .52); }
+    .dual-flow-step:nth-child(2), .dual-flow-step:nth-child(4) { border-top-color: var(--gold); }
+    .dual-flow-step:nth-child(3), .dual-flow-step:nth-child(5) { border-top-color: var(--moss); }
+    .dual-flow-step:last-child { border-right: 0; }
+    .dual-flow-step b { display: block; font-size: 12px; margin-bottom: 5px; }
+    .dual-flow-step span { display: block; color: var(--muted); font-size: 11px; }
+    .dual-flow-step:not(:last-child)::after { content: "→"; position: absolute; right: -8px; top: 38px; z-index: 1; color: var(--terra); background: var(--paper); font-size: 16px; }
+    .dual-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+    .dual-card { min-height: 310px; padding: 18px; border: 1px solid var(--line); border-radius: 17px; background: rgba(251, 248, 241, .64); display: flex; flex-direction: column; gap: 10px; }
+    .dual-card:hover { border-color: var(--terra); box-shadow: 0 12px 25px rgba(65, 48, 28, .08); }
+    .dual-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .dual-card h3 { margin: 0; font: 500 20px/1.2 var(--serif); }
+    .dual-card .company { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .evidence { flex: 0 0 auto; padding: 4px 8px; border-radius: 999px; font-size: 10px; font-weight: 800; background: var(--moss-soft); color: #4b5a43; }
+    .evidence.b { background: var(--gold-soft); color: #7b5b2c; }
+    .evidence.c { background: var(--plum-soft); color: #5d4c5d; }
+    .dual-copy { margin: 0; color: var(--muted); font-size: 12px; }
+    .dual-label { color: var(--terra); font-size: 10px; letter-spacing: .08em; font-weight: 800; text-transform: uppercase; }
+    .dual-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dual-card-footer { margin-top: auto; padding-top: 11px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .dual-card-footer a { color: var(--terra-deep); font-size: 11px; text-decoration: none; margin-left: auto; }
+    .dual-card-footer a:hover { text-decoration: underline; }
+    .dual-note { margin-top: 20px; padding: 13px 15px; color: var(--muted); font-size: 12px; background: var(--plum-soft); border-left: 3px solid var(--plum); }
+
     .matrix { width: 100%; border-collapse: collapse; font-size: 12px; }
     .matrix th { color: var(--muted); font-size: 11px; text-align: left; letter-spacing: .04em; font-weight: 700; padding: 0 9px 10px; }
     .matrix td { padding: 13px 9px; border-top: 1px solid var(--line); vertical-align: top; }
@@ -209,12 +241,18 @@
       .app { padding: 19px 17px 40px; }
       .topline { margin-bottom: 34px; }
       .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .dual-intro { grid-template-columns: 1fr; }
       .metrics { grid-template-columns: repeat(2, 1fr); }
       .price-row { grid-template-columns: 1fr; gap: 6px; }
       .brand-item { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 8px; }
       .brand-item .brand-copy, .brand-item .brand-his { display: none; }
       .brand-item .pill { justify-self: end; }
       .scenario-grid { grid-template-columns: 1fr; }
+      .dual-grid { grid-template-columns: 1fr; }
+      .dual-flow { grid-template-columns: 1fr 1fr; }
+      .dual-flow-step { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .dual-flow-step:nth-child(2n) { border-right: 0; }
+      .dual-flow-step:not(:last-child)::after { display: none; }
       .chain { grid-template-columns: 1fr 1fr; }
       .chain-step { border-bottom: 1px solid var(--line); }
       .source-list { columns: 1; }
@@ -229,7 +267,7 @@
     <header>
       <div class="topline">
         <div class="eyebrow"><span class="dot"></span>医疗 AI 行业地图 · 研究桌面</div>
-        <div class="quiet">中国大陆 · 2026.11.09</div>
+        <div class="quiet">中国大陆 · 2026.11.10</div>
       </div>
       <div class="hero">
         <h1>从“会聊天”到<br><em>能落地</em>，医疗 AI 的下一站</h1>
@@ -238,7 +276,8 @@
           <span class="badge"><strong>25</strong> 中国品牌</span>
           <span class="badge"><strong>15</strong> 核心场景</span>
           <span class="badge"><strong>6</strong> 价格层级</span>
-          <span class="badge"><strong>24</strong> 公开来源</span>
+          <span class="badge"><strong>10</strong> 双端 AI 案例</span>
+          <span class="badge"><strong>37</strong> 公开来源</span>
         </div>
       </div>
       <div class="hero-grid">
@@ -270,6 +309,7 @@
     <nav class="tabs" role="tablist" aria-label="行业地图视图">
       <button class="tab active" type="button" role="tab" aria-selected="true" aria-controls="overview-panel" data-tab="overview-panel">总览</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="brands-panel" data-tab="brands-panel">品牌地图</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="dual-panel" data-tab="dual-panel">双端 AI 闭环</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="scenarios-panel" data-tab="scenarios-panel">场景竞品</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="keywords-panel" data-tab="keywords-panel">关键词意图</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="access-panel" data-tab="access-panel">准入与买单</button>
@@ -323,6 +363,36 @@
         </div>
       </section>
 
+      <section class="panel" id="dual-panel" role="tabpanel" hidden>
+        <div class="panel-head"><div><h2>医生 ↔ 患者：双端 AI 闭环</h2><p>把“两个端都有 AI”与“患者数据真正回流到医生工作流”区分开，优先展示证据完整的产品。</p></div></div>
+        <div class="dual-intro">
+          <div class="dual-definition">
+            <h3>什么才算双端闭环？</h3>
+            <p><strong>患者端采集/交互 → AI 结构化与分流 → 医生端审核/决策 → 随访、医嘱或患教 → 患者端反馈</strong>。如果只是患者 App 与医生 App 并列存在、但没有身份关联、数据回流或审核记录，应标为“双端组合”，而不是完整闭环。</p>
+          </div>
+          <div class="dual-signal">
+            <h3>采购信号</h3>
+            <p>最容易形成预算的是专病随访、诊前预问诊、报告解读、术后护理和数字前门。医院通常先采购患者服务层，再按风险逐步接入 EMR/HIS。</p>
+          </div>
+        </div>
+        <div class="dual-flow" aria-label="双端 AI 闭环流程">
+          <div class="dual-flow-step"><b>患者端</b><span>症状、报告、量表、依从性数据</span></div>
+          <div class="dual-flow-step"><b>AI 中台</b><span>结构化、摘要、分诊、风险分层</span></div>
+          <div class="dual-flow-step"><b>医生端</b><span>审核、修改、制定计划、升级处置</span></div>
+          <div class="dual-flow-step"><b>持续触达</b><span>提醒、患教、复诊、医嘱与问卷</span></div>
+          <div class="dual-flow-step"><b>数据沉淀</b><span>医院、科研、运营效果指标</span></div>
+        </div>
+        <div class="filter-row" aria-label="双端 AI 筛选">
+          <div class="field search"><label for="dual-search">搜索公司 / 产品 / 场景</label><input id="dual-search" type="search" placeholder="例如：随访、EMR、报告解读、Commure"></div>
+          <div class="field"><label for="dual-region">市场</label><select id="dual-region"><option value="all">中国 + 国际</option><option value="中国">中国大陆</option><option value="国际">国际对照</option></select></div>
+          <div class="field"><label for="dual-evidence">证据等级</label><select id="dual-evidence"><option value="all">全部等级</option><option value="A">A 完整闭环</option><option value="B">B 双端组合</option><option value="C">C 边界案例</option></select></div>
+          <div class="field"><label for="dual-access">系统关系</label><select id="dual-access"><option value="all">全部准入</option><option value="院内">EMR/HIS/医院系统</option><option value="平台">平台/API/患者服务层</option><option value="不确定">公开证据不足</option></select></div>
+          <div class="result-count" id="dual-count" aria-live="polite"></div>
+        </div>
+        <div class="dual-grid" id="dual-grid"></div>
+        <div class="dual-note">证据等级是公开资料审计结果，不是产品质量排名。厂商官网能证明“公开声称具备什么能力”，不能单独证明医院活跃使用、续约率或临床结局；采购前仍需核验合同、中标公告、接口清单、医生审核机制和数据回写位置。</div>
+      </section>
+
       <section class="panel" id="scenarios-panel" role="tabpanel" hidden>
         <div class="panel-head"><div><h2>场景竞品</h2><p>从需求出发，比“谁的模型更大”更接近真实采购决策。</p></div></div>
         <div class="filter-row">
@@ -373,7 +443,7 @@
     </main>
 
     <details class="sources">
-      <summary>查看报告来源（24 条）</summary>
+      <summary>查看报告来源（37 条）</summary>
       <ol class="source-list">
         <li>[S1] <a href="https://www.nhc.gov.cn/guihuaxxs/c100133/202511/d1a42ae835c743b9b3e83ac0253c3e9f.shtml" target="_blank" rel="noreferrer">国家卫健委：人工智能+医疗卫生实施意见</a></li>
         <li>[S2] <a href="https://www.cmde.org.cn/flfg/zdyz/zdyzwbk/20220309091014461.html" target="_blank" rel="noreferrer">国家器审中心：AI 医疗器械注册审查指导原则</a></li>
@@ -399,6 +469,19 @@
         <li>[S22] <a href="https://insilico.com/" target="_blank" rel="noreferrer">英矽智能</a></li>
         <li>[S23] <a href="https://finance.sina.com.cn/roll/2025-06-08/doc-inezkivv8237987.shtml" target="_blank" rel="noreferrer">医院 AI 大模型采购案例</a></li>
         <li>[S24] <a href="https://www.dp.tech/product/hermite" target="_blank" rel="noreferrer">深势科技 Hermite</a></li>
+        <li>[S25] <a href="https://www.medlinker.com/index/aiyiliaoyingyongpingtai.html" target="_blank" rel="noreferrer">医联 / 未来医生：AI 医疗应用平台</a></li>
+        <li>[S26] <a href="https://www.xunfeihealthcare.com/news/181/1085.html" target="_blank" rel="noreferrer">讯飞医疗：智医随行大模型发布</a></li>
+        <li>[S27] <a href="https://healthcare.tencent.com/production/12" target="_blank" rel="noreferrer">腾讯健康：智能随访</a></li>
+        <li>[S28] <a href="https://healthcare.tencent.com/production/27" target="_blank" rel="noreferrer">腾讯健康：医生端</a></li>
+        <li>[S29] <a href="https://01.baidu.com/home" target="_blank" rel="noreferrer">百度灵医开放平台</a></li>
+        <li>[S30] <a href="https://www.commure.com/engage" target="_blank" rel="noreferrer">Commure Engage</a></li>
+        <li>[S31] <a href="https://www.fabrichealth.com/" target="_blank" rel="noreferrer">Fabric Health</a></li>
+        <li>[S32] <a href="https://infermedica.com/" target="_blank" rel="noreferrer">Infermedica</a></li>
+        <li>[S33] <a href="https://www.pagd.net/businessIntroduction" target="_blank" rel="noreferrer">平安健康业务介绍</a></li>
+        <li>[S34] <a href="https://apps.apple.com/cn/app/id1552354076" target="_blank" rel="noreferrer">平安好医生医生版</a></li>
+        <li>[S35] <a href="https://www.guahao.com/" target="_blank" rel="noreferrer">微医 / 挂号网</a></li>
+        <li>[S36] <a href="https://ada.com/" target="_blank" rel="noreferrer">Ada Health</a></li>
+        <li>[S37] <a href="https://khealth.com/" target="_blank" rel="noreferrer">K Health</a></li>
       </ol>
     </details>
 
@@ -434,6 +517,19 @@
       {n:25, name:'深势科技 DP Technology', sub:'Hermite · AI4S', type:'药企', payer:'药企', his:'no', product:'蛋白结构、药靶结合、分子模拟、临床前研发', scene:'AI 制药 / 计算化学 / 科研', buy:'药企、生物科技、科研', access:'不直接接 HIS，接计算平台和实验数据', source:'S24'}
     ];
 
+    const dualCases = [
+      {name:'医联 / 未来医生 / Medlinker', company:'Medlinker', region:'中国', evidence:'A', access:'院内', product:'AI 医疗应用平台 · 患者服务与医院智能体', doctor:'依据患者数据生成随访计划；医生审核执行，支持症状监控、风险预警与院内工作流。', patient:'AI 预问诊、分导诊、体检报告解读、健康风险评估与患者服务。', loop:'官方同时展示患者端、医生端、医院/运营/管理端，并强调院内数据深度对接；是公开证据最完整的多端案例。', payer:'医院 / 医疗集团 / 患者 / 药企合作', tags:['完整闭环','院内外协同','随访'], source:'S25', url:'https://www.medlinker.com/index/aiyiliaoyingyongpingtai.html'},
+      {name:'讯飞医疗 / 智医随行', company:'讯飞医疗', region:'中国', evidence:'A', access:'院内', product:'专病全病程管理 · 医院患者服务层', doctor:'风险评估、智能随访、院外数据收集、医生二次核验，减少重复录入。', patient:'医院微信小程序提供宣教、复诊提醒、精准分诊、陪诊、报告解读与医学问答。', loop:'官方披露本地化部署、医院专科知识库和核心业务系统融合，适合在既有医院系统上叠加专病管理。', payer:'医院 / 基层机构 / 卫健系统', tags:['本地化部署','专病随访','医生核验'], source:'S26', url:'https://www.xunfeihealthcare.com/news/181/1085.html'},
+      {name:'腾讯健康智能随访', company:'腾讯健康', region:'中国', evidence:'A', access:'院内', product:'患者全周期管理 · 智能随访', doctor:'制定随访计划、管理患者分组、查看院外数据，生成趋势/时间轴并下发医嘱。', patient:'线上随访、问卷、消息提醒、患教、健康档案和医患沟通。', loop:'官方明确患者端、医生端与院内院外数据打通；切入点是患者管理层，未必需要先替换核心 HIS。', payer:'医院 / 专病中心 / 科研项目', tags:['院内院外打通','全周期','数据趋势'], source:'S27', url:'https://healthcare.tencent.com/production/12'},
+      {name:'百度灵医开放平台 / 灵医智惠', company:'百度', region:'中国', evidence:'B', access:'院内', product:'医疗 AI 能力平台 · API / 插件 / 私有化', doctor:'临床辅助决策、CDSS、医疗知识库问答、医生临床助手与智能病历能力。', patient:'预问诊、报告解读、健康科普、药品咨询、分导诊、症状自诊与 AI 诊后管理。', loop:'官方覆盖诊前、诊中、诊后和两端能力，但具体医院/专病的数据共享与回写颗粒度仍需采购时核验。', payer:'医院 / 政府区域卫生 / 医疗机构', tags:['模块化平台','API / 私有化','闭环待核验'], source:'S29', url:'https://01.baidu.com/home'},
+      {name:'平安健康 / 平安好医生', company:'平安健康', region:'中国', evidence:'B', access:'平台', product:'互联网医疗 · 企业健康 · 保险协同', doctor:'医生版/医院端承载在线接诊、患者档案和慢病跟踪；公开 AI 闭环材料相对分散。', patient:'App 与小程序提供线上线下、院内院外、家庭和企业健康服务。', loop:'平台服务闭环存在，但不能仅凭患者端与医生 App 的并列存在，认定为同一 AI 数据闭环。', payer:'患者 / 保险 / 企业雇主 / 医院合作', tags:['B2B2C','保险协同','AI 证据分散'], source:'S33', url:'https://www.pagd.net/businessIntroduction'},
+      {name:'微医 / 微小医 / AI 健共体', company:'微医', region:'中国', evidence:'B', access:'院内', product:'互联网医院 · 健共体 · 区域协同', doctor:'基层智能筛查、诊疗方案推荐、不合理处方提醒和健康管理师辅助。', patient:'智能预问诊、报告解读、药盒识别、智能导诊和用药咨询。', loop:'具备较强院内外协同迹象，但公开材料以媒体报道和平台能力为主，具体医院接口与回流需核验。', payer:'政府 / 卫健系统 / 医院 / 健共体', tags:['区域协同','基层','接口待核验'], source:'S35', url:'https://www.guahao.com/'},
+      {name:'Commure Engage', company:'Commure', region:'国际', evidence:'A', access:'院内', product:'数字前门 · 患者参与 · 医疗运营', doctor:'临床团队工作台、智能分诊、统一患者沟通、护理路径与告警看板。', patient:'AI 呼叫中心、短信/语音触达、预约转诊、症状监测和双向消息，无需 App 也可使用。', loop:'官方强调与主要 EHR 双向集成，更接近患者触达、护理协同与运营指标的企业级闭环。', payer:'医疗系统 / 健康计划 / 雇主', tags:['EHR 双向集成','数字前门','B2B'], source:'S30', url:'https://www.commure.com/engage'},
+      {name:'Fabric Health', company:'Fabric', region:'国际', evidence:'A', access:'院内', product:'AI Assistant · 虚拟护理 · 临床工作流', doctor:'自动化症状收集、文档、处方/检验工作流、循证决策支持与资源配置。', patient:'AI 助手、症状采集、导航、分诊路由、虚拟护理和护理路径。', loop:'将患者 AI、临床工作流和 EMR 接入放在同一平台；Hybrid AI 结合对话模型与医生编写的临床逻辑。', payer:'医疗系统 / 健康计划 / 雇主 / 虚拟护理伙伴', tags:['EMR 接入','Hybrid AI','数字前门'], source:'S31', url:'https://www.fabrichealth.com/'},
+      {name:'Infermedica', company:'Infermedica', region:'国际', evidence:'B', access:'平台', product:'症状评估 API · 数字前门 · 预约前采集', doctor:'为护士/呼叫中心提供分诊支持，将结构化患者信息交给临床人员。', patient:'聊天、语音或表单症状评估、数字分诊与预约前信息采集。', loop:'公开证据更强的是诊前闭环，而非长期随访；适合作为 API 和数字前门对照。', payer:'医疗系统 / 健康计划 / 公共卫生 / 远程医疗平台', tags:['诊前闭环','API','非全病程'], source:'S32', url:'https://infermedica.com/'},
+      {name:'Ada Health', company:'Ada Health', region:'国际', evidence:'C', access:'不确定', product:'Ada Assess · 患者症状评估', doctor:'有企业解决方案，但公开页面未充分展示医生工作台或共享随访链路。', patient:'症状评估、健康导航和患者端自助分流。', loop:'适合作为患者 AI 与企业 API 参照；公开证据不足以归入完整医患双端闭环。', payer:'患者 / 医疗机构 / 保险与健康伙伴', tags:['边界案例','患者 AI','证据不足'], source:'S36', url:'https://ada.com/'},
+    ];
+
     const scenarios = [
       {title:'智能预问诊与分诊', need:'就诊前采集症状、识别紧急程度、推荐科室和资源。', comp:'讯飞医疗、百度健康、京东健康、创业慧康、微医', payer:'医院 / 卫健', integration:'hospital', tags:['HIS / 预约','院内服务']},
       {title:'检查检验报告解读', need:'把医学术语翻成可理解信息，给出复查与就医提示。', comp:'讯飞晓医、百度健康、AI 京医、平安好医生', payer:'患者 / 保险 / 企业', integration:'consumer', tags:['LIS / PACS','报告解释']},
@@ -459,7 +555,7 @@
       种草: {desc:'用户以具体生活或工作场景表达需求，适合做案例、教程和产品演示。', cta:'落地页建议：一眼看懂的前后对比 + 低门槛体验 + 场景清单。', words:['一键看懂体检报告','手机拍照看化验单','家庭健康 AI 助手','AI 帮我判断挂什么科','AI 帮我整理就诊问题','长辈用的健康 AI','儿童健康助手','肿瘤患者 AI 陪诊','术后康复 AI','孕产妇健康 AI','老人慢病提醒','AI 药盒','医生写病历 AI 工具','医生查指南 AI','影像科 AI 读片助手','医院 AI 随访助手','药企医学部 AI 助手']}
     };
 
-    const sourceNames = {S4:'讯飞医疗',S5:'卫宁健康',S6:'惠每科技',S7:'数坤科技',S8:'深睿医疗',S9:'推想医疗',S10:'汇医慧影',S12:'联影智能',S13:'东软集团',S14:'医渡科技',S15:'百度 AI',S17:'京东健康',S18:'平安好医生',S19:'医联',S20:'春雨医生',S21:'晶泰科技',S22:'英矽智能',S24:'深势科技'};
+    const sourceNames = {S4:'讯飞医疗',S5:'卫宁健康',S6:'惠每科技',S7:'数坤科技',S8:'深睿医疗',S9:'推想医疗',S10:'汇医慧影',S12:'联影智能',S13:'东软集团',S14:'医渡科技',S15:'百度 AI',S17:'京东健康',S18:'平安好医生',S19:'医联',S20:'春雨医生',S21:'晶泰科技',S22:'英矽智能',S24:'深势科技',S25:'医联 / 未来医生',S26:'讯飞医疗智医随行',S27:'腾讯健康智能随访',S28:'腾讯健康医生端',S29:'百度灵医',S30:'Commure Engage',S31:'Fabric Health',S32:'Infermedica',S33:'平安健康',S34:'平安好医生医生版',S35:'微医',S36:'Ada Health',S37:'K Health'};
     const $ = (selector, root=document) => root.querySelector(selector);
     const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
 
@@ -494,6 +590,18 @@
       $('#scenario-count').textContent = `显示 ${list.length} / ${scenarios.length} 个场景`;
       $('#scenario-grid').innerHTML = list.length ? list.map(s => `<article class="scenario"><div><span class="kicker">场景</span><h3>${s.title}</h3></div><p>${s.need}</p><p><strong>竞品：</strong>${s.comp}</p><div class="scenario-footer"><span class="marker ${s.integration === 'consumer' ? 'no' : ''}">${s.integration === 'hospital' ? '需入院 / 系统' : s.integration === 'platform' ? '平台或数据接入' : '可独立 C 端使用'}</span>${s.tags.map(t => `<span class="pill">${t}</span>`).join('')}</div></article>`).join('') : '<div class="empty">没有匹配场景。换一个准入方式或买单方。</div>';
     }
+    function renderDual() {
+      const query = $('#dual-search').value.trim().toLowerCase();
+      const region = $('#dual-region').value;
+      const evidence = $('#dual-evidence').value;
+      const access = $('#dual-access').value;
+      const list = dualCases.filter(c => {
+        const hay = [c.name,c.company,c.product,c.doctor,c.patient,c.loop,c.payer,c.tags.join(' ')].join(' ').toLowerCase();
+        return (!query || hay.includes(query)) && (region === 'all' || c.region === region) && (evidence === 'all' || c.evidence === evidence) && (access === 'all' || c.access === access);
+      });
+      $('#dual-count').textContent = `显示 ${list.length} / ${dualCases.length} 个案例`;
+      $('#dual-grid').innerHTML = list.length ? list.map(c => `<article class="dual-card"><div class="dual-card-head"><div><h3>${c.name}</h3><div class="company">${c.company} · ${c.region} · ${c.product}</div></div><span class="evidence ${c.evidence.toLowerCase()}" title="${c.evidence === 'A' ? '官方材料同时覆盖两端与数据/随访链路' : c.evidence === 'B' ? '官方材料证明双端组合，但共享数据流或部署范围仍需核验' : '公开证据主要支持患者端，医生端闭环不足'}">${c.evidence} 级</span></div><div><div class="dual-label">患者端 AI</div><p class="dual-copy">${c.patient}</p></div><div><div class="dual-label">医生端 AI</div><p class="dual-copy">${c.doctor}</p></div><div><div class="dual-label">闭环判断</div><p class="dual-copy">${c.loop}</p></div><div class="dual-card-footer"><span class="pill ${c.access === '院内' ? 'green' : c.access === '不确定' ? 'plum' : ''}">${c.access === '院内' ? 'EMR / HIS / 医院系统' : c.access === '平台' ? '平台 / API / 服务层' : '公开证据不足'}</span><span class="pill gold">${c.payer}</span>${c.tags.map(t => `<span class="pill">${t}</span>`).join('')}<a href="${c.url}" target="_blank" rel="noreferrer">来源 ${c.source} ↗</a></div></article>`).join('') : '<div class="empty">没有匹配案例。换一个市场、证据等级或系统关系。</div>';
+    }
     function renderKeywords(intent='广告') {
       const g = keywordGroups[intent];
       $$('.intent').forEach(btn => { const on = btn.dataset.intent === intent; btn.classList.toggle('active',on); btn.setAttribute('aria-selected',on); });
@@ -514,8 +622,12 @@
     $('#brand-his').addEventListener('change', renderBrands);
     $('#scenario-integration').addEventListener('change', renderScenarios);
     $('#scenario-payer').addEventListener('change', renderScenarios);
+    $('#dual-search').addEventListener('input', renderDual);
+    $('#dual-region').addEventListener('change', renderDual);
+    $('#dual-evidence').addEventListener('change', renderDual);
+    $('#dual-access').addEventListener('change', renderDual);
     $$('.intent').forEach(btn => btn.addEventListener('click', () => renderKeywords(btn.dataset.intent)));
-    setupTabs(); renderBrands(); renderScenarios(); renderKeywords();
+    setupTabs(); renderBrands(); renderDual(); renderScenarios(); renderKeywords();
   </script>
 </body>
 </html>
