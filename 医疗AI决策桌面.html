@@ -39,6 +39,40 @@
     .source-box{margin-top:38px;padding-top:17px;border-top:1px solid var(--line-strong)}.source-box summary{cursor:pointer;color:var(--muted);font-size:12px}.source-list{columns:2;column-gap:35px;margin:15px 0 0;padding-left:20px;color:var(--muted);font-size:10px}.source-list li{break-inside:avoid;margin-bottom:7px}.source-list a{color:var(--terra-deep);text-decoration:none}.source-list a:hover{text-decoration:underline}.footnote{margin-top:18px;color:var(--faint);font-size:11px}.footer-row{margin-top:48px;padding-top:16px;border-top:1px solid var(--line-strong);color:var(--muted);font-size:11px}.footer-row a{color:var(--terra-deep);text-decoration:none}
     @media (max-width:1050px){.hero-decision,.board-intro,.evidence-box,.access-grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.metric:nth-child(3){border-right:0}.metric:nth-child(n+4){border-top:1px solid var(--line)}.board-grid,.insight-grid,.research-thesis,.reference-grid{grid-template-columns:1fr 1fr}.research-chain{grid-template-columns:repeat(4,1fr)}.research-step:nth-child(4){border-right:0}.product-grid{grid-template-columns:1fr}}
     @media (max-width:700px){.app{padding:21px 17px 46px}.topline{margin-bottom:37px}.hero h1{font-size:47px}.hero-copy{font-size:15px}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2n){border-right:0}.metric:nth-child(n+3){border-top:1px solid var(--line)}.board-grid,.insight-grid,.research-thesis,.reference-grid{grid-template-columns:1fr}.panel-head,.section-head{align-items:flex-start;flex-direction:column;gap:7px}.panel-head p{text-align:left}.flow{grid-template-columns:1fr 1fr}.flow-step{border-bottom:1px solid var(--line)}.flow-step:not(:last-child)::after{display:none}.research-chain{grid-template-columns:1fr 1fr}.research-step:nth-child(2n){border-right:0}.analysis-grid{grid-template-columns:1fr}.analysis-block.wide{grid-column:auto}.source-list{columns:1}.result-count{margin-left:0}.product-footer a{margin-left:0;width:100%}}
+    /* Tech command center redesign: dark evidence workspace, comparison first. */
+    :root{
+      --paper:#07111f;--paper-soft:#0c1a2b;--paper-deep:#10253b;--ink:#e8f4ff;
+      --muted:#91a9bf;--faint:#5d7890;--line:rgba(147,190,222,.18);--line-strong:rgba(147,190,222,.34);
+      --terra:#25d5ee;--terra-deep:#b8f6ff;--terra-soft:rgba(37,213,238,.13);--moss:#8df7b0;--moss-soft:rgba(141,247,176,.12);
+      --gold:#ffd166;--gold-soft:rgba(255,209,102,.14);--plum:#d5a8ff;--plum-soft:rgba(213,168,255,.13);
+      --blue:#72a9ff;--blue-soft:rgba(114,169,255,.13);--shadow:0 24px 70px rgba(0,0,0,.32);
+      --serif:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    }
+    html{background:var(--paper)}
+    body{color:var(--ink);background-color:var(--paper);background-image:linear-gradient(rgba(118,175,211,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(118,175,211,.045) 1px,transparent 1px),radial-gradient(circle at 8% -10%,rgba(37,213,238,.18),transparent 32rem),radial-gradient(circle at 98% 0%,rgba(114,169,255,.14),transparent 28rem);background-size:36px 36px,36px 36px,auto,auto;line-height:1.6}
+    a{color:var(--terra-deep)}
+    button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline-color:var(--terra);outline-offset:3px}
+    .app{max-width:1640px;padding:22px 32px 110px}
+    .topline{margin-bottom:30px}.topline .quiet{color:var(--muted)}
+    .eyebrow{color:var(--terra);letter-spacing:.18em}.eyebrow i{background:var(--terra);box-shadow:0 0 0 5px var(--terra-soft)}
+    .hero{max-width:1120px}.hero h1{font-family:var(--sans);font-weight:760;letter-spacing:-.06em;line-height:.98}.hero h1 em{color:var(--terra)}.hero-copy{color:var(--muted);font-size:16px;max-width:930px}
+    .chip,.pill,.status{border-color:var(--line);background:rgba(12,26,43,.72);color:var(--muted)}.chip strong{color:var(--ink)}
+    .pill.terra,.status.a{background:var(--terra-soft);color:var(--terra-deep)}.pill.moss{background:var(--moss-soft);color:var(--moss)}.pill.gold{background:var(--gold-soft);color:var(--gold)}.pill.plum,.status.c{background:var(--plum-soft);color:var(--plum)}.pill.blue{background:var(--blue-soft);color:var(--blue)}.status.b{background:var(--gold-soft);color:var(--gold)}
+    .hero-decision{gap:14px;margin-top:34px}.hero-note,.hero-question{border-color:var(--line);background:linear-gradient(135deg,rgba(14,32,51,.96),rgba(8,19,32,.90));border-radius:12px;box-shadow:var(--shadow)}.hero-note{border-top-color:var(--terra)}.hero-question{border-top-color:var(--moss)}.hero-note h2,.hero-question h2{font-family:var(--sans);font-weight:680}.hero-note p,.hero-question p,.hero-question ul{color:var(--muted)}.kicker{color:var(--terra);letter-spacing:.16em}
+    .metrics{margin:28px 0 22px;border-color:var(--line-strong);background:rgba(8,20,34,.54)}.metric{border-color:var(--line);min-height:92px}.metric-value{font-family:var(--sans);font-weight:760;color:var(--ink)}.metric-label{color:var(--muted)}
+    .tabs{gap:4px;padding:8px 0 10px;border-color:var(--line-strong);background:rgba(7,17,31,.86);box-shadow:0 16px 30px rgba(0,0,0,.14)}.tab{color:var(--muted);border:1px solid transparent;border-radius:7px}.tab:hover{background:var(--terra-soft);color:var(--terra-deep)}.tab.active{color:#04111a;background:var(--terra);box-shadow:0 0 22px rgba(37,213,238,.22)}.tab-count{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;margin-left:5px;border-radius:999px;background:rgba(4,17,26,.20);font-size:10px}
+    .panel{padding-top:30px}.panel-head h2,.section-head h3{font-family:var(--sans);font-weight:740;letter-spacing:-.04em}.panel-head h2{font-size:32px}.panel-head p,.section-head p{color:var(--muted)}
+    .decision-strip,.board-grid,.insight-grid,.research-thesis,.access-grid,.reference-grid{gap:12px}.decision-card,.board-card,.insight,.board-intro>div,.access-card,.reference-card{border-color:var(--line);background:linear-gradient(145deg,rgba(13,30,49,.92),rgba(8,18,31,.84))}.decision-card{border-top-color:var(--terra)}.decision-card:nth-child(2){border-top-color:var(--gold)}.decision-card:nth-child(3){border-top-color:var(--moss)}.decision-card h3,.board-card h3,.insight h3,.board-intro h3,.access-card h3,.reference-card h3{font-family:var(--sans);font-weight:700}.decision-card p,.board-card .who,.board-card dd,.insight p,.board-intro p,.board-intro ul,.access-card p,.access-card ul,.reference-card p,.reference-card dd{color:var(--muted)}.board-card{min-height:320px;overflow:hidden}.board-card::after{background:var(--terra-soft);opacity:.7}.board-card:nth-child(2)::after{background:var(--gold-soft)}.board-card:nth-child(3)::after{background:var(--moss-soft)}
+    .evidence-box>div{background:var(--blue-soft);border-color:var(--blue)}.evidence-box>div:last-child{background:var(--plum-soft);border-color:var(--plum)}.evidence-box p,.decision-table td{color:var(--muted)}.decision-table{background:rgba(9,23,38,.76)}.decision-table th{background:rgba(18,41,64,.78);color:var(--muted)}.decision-table th,.decision-table td{border-color:var(--line)}.decision-table td:first-child{color:var(--ink)}.decision-table .good{color:var(--moss)}.decision-table .risk{color:var(--terra)}
+    .flow-step,.research-step{background:rgba(12,31,50,.72);border-color:var(--line);border-top-color:var(--terra)}.flow-step:nth-child(2),.flow-step:nth-child(4),.research-step:nth-child(2n){border-top-color:var(--gold);background:rgba(44,39,19,.34)}.flow-step:nth-child(3),.flow-step:nth-child(5),.research-step:last-child{border-top-color:var(--moss);background:rgba(12,42,34,.34)}.flow-step span,.research-step span{color:var(--muted)}.flow-step:not(:last-child)::after{background:var(--paper);color:var(--terra)}
+    .filter-bar{border-color:var(--line);background:rgba(9,23,38,.84);box-shadow:0 12px 30px rgba(0,0,0,.16)}.field label{color:var(--muted)}.field input,.field select{border-color:var(--line-strong);background:var(--paper-soft);color:var(--ink)}.result-count{color:var(--muted)}
+    .product-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.product-card{gap:10px;padding:17px;border-color:var(--line);background:linear-gradient(145deg,rgba(13,30,49,.94),rgba(8,18,31,.88));border-radius:10px;min-height:300px;box-shadow:0 8px 26px rgba(0,0,0,.10)}.product-card:hover{border-color:var(--terra);box-shadow:0 14px 36px rgba(0,0,0,.24),0 0 0 1px rgba(37,213,238,.12)}.product-head h3{font-family:var(--sans);font-weight:720}.product-head h3 a{border-color:rgba(37,213,238,.45)}.product-head h3 a:hover{color:var(--terra);border-color:var(--terra)}.product-sub,.product-copy{color:var(--muted)}.product-claim{color:var(--ink)}.product-card details{border-color:var(--line-strong)}.product-card summary{color:var(--terra-deep)}.analysis-block{border-color:var(--line);background:rgba(7,17,31,.66)}.analysis-label{color:var(--terra)}.analysis-block p,.analysis-block ul{color:var(--muted)}.product-footer{border-color:var(--line)}.product-footer a{color:var(--terra-deep)}.empty{border-color:var(--line-strong);color:var(--muted)}
+    .reference-card .risk{color:var(--terra)}.source-box{border-color:var(--line-strong)}.source-box summary,.footnote,.source-list{color:var(--muted)}.source-list a,.footer-row a{color:var(--terra-deep)}.footer-row{border-color:var(--line-strong)}
+
+    .comparison-panel{padding-top:28px}.compare-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;padding:22px 24px;border:1px solid var(--line);border-left:3px solid var(--terra);border-radius:12px;background:linear-gradient(135deg,rgba(14,36,57,.96),rgba(8,18,31,.88));box-shadow:var(--shadow)}.compare-toolbar h2{margin:8px 0 7px;font-size:32px;line-height:1.05;letter-spacing:-.04em}.compare-toolbar p{max-width:760px;margin:0;color:var(--muted);font-size:13px}.compare-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px;min-width:260px}.compare-actions button{border:1px solid var(--line-strong);border-radius:7px;padding:8px 10px;background:rgba(20,48,72,.72);color:var(--muted);font-size:11px;cursor:pointer}.compare-actions button:hover{border-color:var(--terra);color:var(--terra-deep);background:var(--terra-soft)}.compare-actions .compare-clear{color:var(--terra-deep);border-color:rgba(37,213,238,.36)}.comparison-status{display:flex;justify-content:space-between;gap:12px;margin:14px 0 9px;color:var(--muted);font-size:11px}.comparison-status strong{color:var(--terra);font-size:15px}.comparison-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:rgba(6,16,28,.86);box-shadow:var(--shadow)}.comparison-table{width:100%;min-width:940px;border-collapse:separate;border-spacing:0;font-size:12px}.comparison-table th,.comparison-table td{padding:13px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.comparison-table thead th{position:sticky;top:0;z-index:2;background:#10263d;color:var(--ink);font-weight:750}.comparison-table thead th:first-child{left:0;z-index:3;width:145px;color:var(--muted)}.comparison-table tbody th{position:sticky;left:0;z-index:1;background:#0b1d31;color:var(--muted);font-size:10px;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}.comparison-table td:last-child,.comparison-table th:last-child{border-right:0}.comparison-table tr:last-child td,.comparison-table tr:last-child th{border-bottom:0}.comparison-table td{min-width:205px;color:var(--muted);line-height:1.65}.comparison-table td.is-different{background:rgba(37,213,238,.065);box-shadow:inset 2px 0 0 rgba(37,213,238,.44)}.comparison-table .compare-product-name{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.comparison-table .compare-product-name a{color:var(--terra-deep);font-size:13px;font-weight:750;text-decoration:none}.comparison-table .compare-product-name a:hover{text-decoration:underline}.comparison-table .compare-company{display:block;margin-top:4px;color:var(--faint);font-size:10px;font-weight:500}.comparison-table .compare-badge{display:inline-flex;padding:3px 7px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:10px;white-space:nowrap}.comparison-table .compare-badge.a{color:var(--moss);background:var(--moss-soft)}.comparison-table .compare-badge.b{color:var(--gold);background:var(--gold-soft)}.comparison-table .compare-badge.c{color:var(--plum);background:var(--plum-soft)}.comparison-table .compare-link{color:var(--terra-deep);font-weight:700;text-decoration:none}.comparison-table .compare-link:hover{text-decoration:underline}.compare-note{display:flex;gap:10px;align-items:flex-start;margin-top:13px;padding:13px 15px;border:1px solid rgba(255,209,102,.28);background:var(--gold-soft);border-radius:9px;color:#d9bf79;font-size:11px}.compare-note p{margin:0}.compare-note strong{color:var(--gold)}.compare-note-mark{display:grid;place-items:center;flex:0 0 18px;height:18px;border-radius:50%;background:var(--gold);color:#18202a;font-weight:900}.compare-toggle{display:inline-flex;align-items:center;gap:5px;margin-top:8px;color:var(--muted);font-size:10px;cursor:pointer;user-select:none}.compare-toggle input{width:14px;height:14px;accent-color:var(--terra);cursor:pointer}.compare-toggle input:checked+span{color:var(--terra-deep);font-weight:750}.compare-rail{position:fixed;right:26px;bottom:22px;z-index:30;display:flex;align-items:center;gap:12px;max-width:min(680px,calc(100vw - 32px));padding:10px 12px 10px 14px;border:1px solid rgba(37,213,238,.45);border-radius:10px;background:rgba(6,17,29,.93);box-shadow:0 16px 45px rgba(0,0,0,.44),0 0 28px rgba(37,213,238,.09);backdrop-filter:blur(18px)}.compare-rail-label{display:flex;align-items:center;gap:7px;white-space:nowrap;color:var(--muted);font-size:11px}.compare-rail-dot{width:7px;height:7px;border-radius:50%;background:var(--terra);box-shadow:0 0 12px var(--terra)}.compare-rail-items{display:flex;gap:5px;overflow:hidden}.compare-rail-item{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 7px;border:1px solid var(--line);border-radius:5px;color:var(--ink);background:rgba(22,49,73,.72);font-size:10px}.compare-rail button{border:1px solid var(--terra);border-radius:6px;padding:7px 10px;background:var(--terra);color:#04111a;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap}.compare-rail button:hover{box-shadow:0 0 18px rgba(37,213,238,.35)}
+    @media (max-width:1250px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.compare-toolbar{align-items:flex-start;flex-direction:column}.compare-actions{justify-content:flex-start}}
+    @media (max-width:700px){.app{padding:17px 14px 102px}.topline{align-items:flex-start;flex-direction:column;gap:8px;margin-bottom:28px}.hero h1{font-size:46px}.hero-copy{font-size:14px}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2n){border-right:0}.metric:nth-child(n+3){border-top:1px solid var(--line)}.product-grid{grid-template-columns:1fr}.compare-toolbar{padding:18px 17px}.compare-toolbar h2{font-size:27px}.compare-actions{min-width:0}.comparison-status{align-items:flex-start;flex-direction:column;gap:3px}.compare-rail{left:12px;right:12px;bottom:12px;max-width:none}.compare-rail-items{display:none}.compare-rail button{margin-left:auto}.tab{padding:9px 10px;font-size:12px}}
   </style>
 </head>
 <body>
@@ -65,7 +99,8 @@
     </section>
 
     <nav class="tabs" role="tablist" aria-label="决策桌面视图">
-      <button class="tab active" type="button" role="tab" aria-selected="true" aria-controls="home-panel" data-tab="home-panel">决策总览</button>
+      <button class="tab active" type="button" role="tab" aria-selected="true" aria-controls="comparison-panel" data-tab="comparison-panel">产品比较 <span class="tab-count" id="compare-tab-count">4</span></button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="home-panel" data-tab="home-panel">决策总览</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="patient-panel" data-tab="patient-panel">患者管理</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="research-panel" data-tab="research-panel">临床研究</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="decision-panel" data-tab="decision-panel">辅助决策</button>
@@ -74,6 +109,25 @@
     </nav>
 
     <main>
+      <section class="panel comparison-panel" id="comparison-panel" role="tabpanel">
+        <div class="compare-toolbar">
+          <div>
+            <div class="kicker">LIVE COMPARISON / EVIDENCE MATRIX</div>
+            <h2>把产品放到同一张证据表里</h2>
+            <p>从产品卡片勾选 2–4 个案例，统一比较责任链、目标用户、系统入口、证据边界、优劣势与下一步验证。高亮项表示不同，不代表谁更好。</p>
+          </div>
+          <div class="compare-actions">
+            <button class="compare-preset" type="button" data-preset="patient">患者管理起步组合</button>
+            <button class="compare-preset" type="button" data-preset="research">临床研究起步组合</button>
+            <button class="compare-preset" type="button" data-preset="decision">辅助决策起步组合</button>
+            <button class="compare-clear" id="clear-compare" type="button">清空选择</button>
+          </div>
+        </div>
+        <div class="comparison-status"><span><strong id="compare-count">4</strong> / 4 个产品已选</span><span>建议先比较同一板块，再跨板块看入口与责任差异</span></div>
+        <div class="comparison-table-wrap" id="comparison-table-wrap"></div>
+        <div class="compare-note"><span class="compare-note-mark">!</span><p><strong>阅读方式：</strong>优势和限制是公开材料的结构化判断；证据等级是公开证据完整度，不是质量排名。真正的决策仍要回到合同、接口、日志、临床验证与验收指标。</p></div>
+      </section>
+
       <section class="panel" id="home-panel" role="tabpanel">
         <div class="panel-head"><div><h2>先决定你在哪条责任链上赢</h2><p>这不是一个“医疗 AI 排名页”。它是一张把市场信息翻译成产品、销售和交付决策的地图。</p></div><span class="chip">事实 / 推论 / 行动分层</span></div>
         <div class="board-grid">
@@ -145,6 +199,7 @@
         <table class="decision-table" aria-label="医疗 AI 采购验证清单"><thead><tr><th>问题</th><th>需要看到的证据</th><th>如果没有，如何降级承诺</th><th>最容易被忽略的反例</th></tr></thead><tbody><tr><td>它真的进了工作流吗？</td><td>接口、字段、写回位置、任务日志、医生/研究者操作记录</td><td>称为“外挂工具/服务层”，不称为“院内闭环”</td><td>演示环境可连接，不代表生产环境可用</td></tr><tr><td>它真的提高了结果吗？</td><td>基线对照、时间窗、样本、统计口径、失败案例</td><td>只承诺流程提效，不承诺诊疗结局</td><td>覆盖医院数、调用量、准确率不能代替结局</td></tr><tr><td>它能被复评吗？</td><td>版本、提示词/规则、模型漂移、审计、撤回和回滚机制</td><td>限定病种、限定人群、限定人工复核</td><td>模型更新后，原有验证结论可能失效</td></tr></tbody></table>
       </section>
     </main>
+    <div class="compare-rail" id="compare-rail" aria-live="polite"><div class="compare-rail-label"><span class="compare-rail-dot"></span><span>横向比较 <strong id="compare-rail-count">4</strong>/4</span></div><div class="compare-rail-items" id="compare-rail-items"></div><button type="button" id="open-compare">打开比较</button></div>
 
     <details class="source-box"><summary>查看研究来源与证据口径（<span id="source-summary-count">—</span> 条）</summary><ol class="source-list" id="source-list"></ol><p class="footnote">来源优先级：官方产品/公司页面、监管与政府材料、医院/大学/论文；搜索摘要只用于定位，不替代原始页面。公开材料中的“支持、覆盖、落地、领先、首个”等表述默认按厂商自述处理，除非有独立材料交叉验证。</p></details>
     <div class="footer-row"><span>医疗 AI 决策桌面 · 研究版</span><span><a href="https://github.com/kylokuo/AI-for-Med" target="_blank" rel="noreferrer">GitHub ↗</a> · 研究不是投资或医疗建议</span></div>
@@ -226,9 +281,11 @@
     const $$ = (s, root=document) => [...root.querySelectorAll(s)];
     const boardOf = board => products.filter(p => p.board === board);
     const evidenceLabel = e => e === 'A' ? 'A · 证据/流程较完整' : e === 'B' ? 'B · 能力明确，闭环待核验' : 'C · 边界案例/公开证据不足';
+    const selected = new Set([0,1,2,3]);
     function card(p){
       const sourceLinks = p.source.map(id => { const s=sources.find(x=>x[0]===id); return s ? `<a href="${s[2]}" target="_blank" rel="noreferrer">${id}</a>` : id; }).join(' · ');
-      return `<article class="product-card"><div class="product-head"><div><h3><a href="${p.url}" target="_blank" rel="noreferrer">${p.name} ↗</a></h3><div class="product-sub">${p.company} · ${p.board} · ${p.system}</div></div><span class="status ${p.evidence.toLowerCase()}" title="${evidenceLabel(p.evidence)}">${p.evidence} 级</span></div><p class="product-claim">${p.claim}</p><p class="product-copy">${p.copy}</p><div class="product-tags"><span class="pill ${p.board==='患者管理'?'terra':p.board==='临床研究'?'blue':'moss'}">${p.board}</span>${p.payer.map(x=>`<span class="pill">${x}</span>`).join('')}</div><details><summary>展开：依据 / 优势 / 限制 / 决策</summary><div class="analysis-grid"><div class="analysis-block"><div class="analysis-label">优势 / 为什么值得看</div><ul>${p.strengths.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="analysis-block"><div class="analysis-label">限制 / 证据缺口</div><ul>${p.limits.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="analysis-block wide"><div class="analysis-label">适用于谁与什么场景</div><p>${p.fit}</p></div><div class="analysis-block wide"><div class="analysis-label">相反证据</div><p>${p.counter}</p></div><div class="analysis-block wide"><div class="analysis-label">会改变什么决定</div><p>${p.decision}</p></div><div class="analysis-block wide"><div class="analysis-label">下一步验证</div><p>${p.next}</p></div></div></details><div class="product-footer"><span class="pill">${p.system.split(' / ')[0]}</span><span class="pill">${evidenceLabel(p.evidence)}</span><a href="${p.url}" target="_blank" rel="noreferrer">官网 / 原始入口 ${sourceLinks} ↗</a></div></article>`;
+      const index = products.indexOf(p);
+      return `<article class="product-card"><div class="product-head"><div><h3><a href="${p.url}" target="_blank" rel="noreferrer">${p.name} ↗</a></h3><div class="product-sub">${p.company} · ${p.board} · ${p.system}</div><label class="compare-toggle"><input class="compare-check" type="checkbox" data-index="${index}" ${selected.has(index)?'checked':''}><span>加入横向比较</span></label></div><span class="status ${p.evidence.toLowerCase()}" title="${evidenceLabel(p.evidence)}">${p.evidence} 级</span></div><p class="product-claim">${p.claim}</p><p class="product-copy">${p.copy}</p><div class="product-tags"><span class="pill ${p.board==='患者管理'?'terra':p.board==='临床研究'?'blue':'moss'}">${p.board}</span>${p.payer.map(x=>`<span class="pill">${x}</span>`).join('')}</div><details><summary>展开：依据 / 优势 / 限制 / 决策</summary><div class="analysis-grid"><div class="analysis-block"><div class="analysis-label">优势 / 为什么值得看</div><ul>${p.strengths.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="analysis-block"><div class="analysis-label">限制 / 证据缺口</div><ul>${p.limits.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="analysis-block wide"><div class="analysis-label">适用于谁与什么场景</div><p>${p.fit}</p></div><div class="analysis-block wide"><div class="analysis-label">相反证据</div><p>${p.counter}</p></div><div class="analysis-block wide"><div class="analysis-label">会改变什么决定</div><p>${p.decision}</p></div><div class="analysis-block wide"><div class="analysis-label">下一步验证</div><p>${p.next}</p></div></div></details><div class="product-footer"><span class="pill">${p.system.split(' / ')[0]}</span><span class="pill">${evidenceLabel(p.evidence)}</span><a href="${p.url}" target="_blank" rel="noreferrer">官网 / 原始入口 ${sourceLinks} ↗</a></div></article>`;
     }
     function renderInto(board, searchId, evidenceId, countId, gridId){
       const q = $(`#${searchId}`).value.trim().toLowerCase(); const e = $(`#${evidenceId}`).value;
@@ -240,13 +297,68 @@
       const list=products.filter(p=>{const hay=[p.company,p.name,p.board,p.system,p.claim,p.copy,p.fit,p.decision,p.next,p.payer.join(' ')].join(' ').toLowerCase();return(!q||hay.includes(q))&&(b==='all'||p.board===b)&&(payer==='all'||p.payer.includes(payer))&&(e==='all'||p.evidence===e)});
       $('#all-count').textContent=`显示 ${list.length} / ${products.length} 个产品`;$('#all-grid').innerHTML=list.length?list.map(card).join(''):'<div class="empty">没有匹配项。换一个板块、买单方或关键词。</div>';
     }
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const comparisonRows = [
+      ['责任链', p => p.board],
+      ['核心产品 / 入口', p => `${p.name} · ${p.system}`],
+      ['适用于谁 / 谁买单', p => `${p.payer.join(' / ')}｜${p.fit}`],
+      ['依据 / 核心主张', p => p.claim],
+      ['证据等级', p => p.evidence],
+      ['优势', p => p.strengths.join(' ')],
+      ['限制', p => p.limits.join(' ')],
+      ['相反证据', p => p.counter],
+      ['会改变什么决定', p => p.decision],
+      ['下一步验证', p => p.next]
+    ];
+    function syncCompareControls(){
+      $$('.compare-check').forEach(input => { input.checked = selected.has(Number(input.dataset.index)); });
+      const names=[...selected].map(index=>products[index]).filter(Boolean).map(p=>p.name);
+      $('#compare-count').textContent=selected.size;
+      $('#compare-rail-count').textContent=selected.size;
+      $('#compare-tab-count').textContent=selected.size;
+      $('#compare-rail-items').innerHTML=names.map(name=>`<span class="compare-rail-item" title="${escapeHtml(name)}">${escapeHtml(name)}</span>`).join('');
+    }
+    function renderComparison(){
+      const chosen=[...selected].map(index=>products[index]).filter(Boolean);
+      syncCompareControls();
+      if(chosen.length<2){
+        $('#comparison-table-wrap').innerHTML='<div class="empty">至少选择 2 个产品，才能生成横向比较。请到“患者管理 / 临床研究 / 辅助决策 / 竞品数据库”中勾选产品。</div>';
+        return;
+      }
+      const head=chosen.map(p=>`<th><div class="compare-product-name"><a href="${p.url}" target="_blank" rel="noreferrer">${escapeHtml(p.name)} ↗</a><span class="compare-badge ${p.evidence.toLowerCase()}">${p.evidence}级</span></div><span class="compare-company">${escapeHtml(p.company)}</span></th>`).join('');
+      const rows=comparisonRows.map(([label,get])=>{
+        const values=chosen.map(get); const different=new Set(values).size>1;
+        return `<tr><th>${label}</th>${values.map((value,index)=>`<td class="${different?'is-different':''}">${label==='证据等级'?`<span class="compare-badge ${chosen[index].evidence.toLowerCase()}">${escapeHtml(value)} · ${escapeHtml(evidenceLabel(value).split(' · ')[1]||'')}</span>`:escapeHtml(value)}</td>`).join('')}</tr>`;
+      }).join('');
+      const links=chosen.map(p=>`<td><a class="compare-link" href="${p.url}" target="_blank" rel="noreferrer">直达官网 / 原始入口 ↗</a></td>`).join('');
+      $('#comparison-table-wrap').innerHTML=`<table class="comparison-table"><thead><tr><th>比较维度</th>${head}</tr></thead><tbody>${rows}<tr><th>官网</th>${links}</tr></tbody></table>`;
+    }
+    function choosePreset(board){
+      selected.clear();
+      products.filter(p=>p.board===board).slice(0,4).forEach(p=>selected.add(products.indexOf(p)));
+      renderComparison();
+    }
     function setupTabs(){
       $$('.tab').forEach(btn=>btn.addEventListener('click',()=>{const target=btn.dataset.tab;$$('.tab').forEach(x=>{const on=x===btn;x.classList.toggle('active',on);x.setAttribute('aria-selected',on)});$$('.panel').forEach(p=>p.hidden=p.id!==target);window.scrollTo({top:document.querySelector('.tabs').offsetTop-8,behavior:'smooth'})}));
     }
     $('#product-total').textContent=products.length;$('#source-total').textContent=sources.length;$('#source-summary-count').textContent=sources.length;
     $('#source-list').innerHTML=sources.map(s=>`<li>[${s[0]}] <a href="${s[2]}" target="_blank" rel="noreferrer">${s[1]}</a></li>`).join('');
     [['patient-search','patient-evidence','patient-count','patient-grid','患者管理'],['research-search','research-evidence','research-count','research-grid','临床研究'],['decision-search','decision-evidence','decision-count','decision-grid','辅助决策']].forEach(([search,evidence,count,grid,board])=>{$(`#${search}`).addEventListener('input',()=>renderInto(board,search,evidence,count,grid));$(`#${evidence}`).addEventListener('change',()=>renderInto(board,search,evidence,count,grid));renderInto(board,search,evidence,count,grid)});
-    ['all-search','all-board','all-payer','all-evidence'].forEach(id=>{const event=id==='all-search'?'input':'change';$(`#${id}`).addEventListener(event,renderAll)});renderAll();setupTabs();
+    ['all-search','all-board','all-payer','all-evidence'].forEach(id=>{const event=id==='all-search'?'input':'change';$(`#${id}`).addEventListener(event,renderAll)});renderAll();
+    document.addEventListener('change', event=>{
+      if(!event.target.matches('.compare-check')) return;
+      const index=Number(event.target.dataset.index);
+      if(event.target.checked && selected.size>=4){event.target.checked=false;return;}
+      event.target.checked ? selected.add(index) : selected.delete(index);
+      renderComparison();
+    });
+    document.addEventListener('click', event=>{
+      const preset=event.target.closest('[data-preset]');
+      if(preset){choosePreset(preset.dataset.preset==='patient'?'患者管理':preset.dataset.preset==='research'?'临床研究':'辅助决策');return;}
+      if(event.target.closest('#clear-compare')){selected.clear();renderComparison();return;}
+      if(event.target.closest('#open-compare')){const tab=$('.tab[data-tab="comparison-panel"]');tab.click();return;}
+    });
+    renderComparison();setupTabs();
   </script>
 </body>
 </html>
