@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Medical AI command center</title>
+  <desc id="desc">A luminous medical cross built from data nodes and an orbital signal path.</desc>
+  <defs>
+    <linearGradient id="bg" x1="12" y1="8" x2="116" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102a45"/>
+      <stop offset="1" stop-color="#07111f"/>
+    </linearGradient>
+    <linearGradient id="cross" x1="37" y1="32" x2="94" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b8f6ff"/>
+      <stop offset=".52" stop-color="#25d5ee"/>
+      <stop offset="1" stop-color="#72a9ff"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="25" y1="23" x2="106" y2="105" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8df7b0"/>
+      <stop offset="1" stop-color="#25d5ee"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="url(#bg)"/>
+  <path d="M18 37V24a6 6 0 0 1 6-6h13M91 18h13a6 6 0 0 1 6 6v13M110 91v13a6 6 0 0 1-6 6H91M37 110H24a6 6 0 0 1-6-6V91" fill="none" stroke="#1d4c6c" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="64" cy="64" r="43" fill="none" stroke="#173a57" stroke-width="1.5" stroke-dasharray="2 7"/>
+  <ellipse cx="64" cy="64" rx="49" ry="25" transform="rotate(-35 64 64)" fill="none" stroke="url(#signal)" stroke-width="2.5" opacity=".86"/>
+  <ellipse cx="64" cy="64" rx="49" ry="25" transform="rotate(35 64 64)" fill="none" stroke="#2d7697" stroke-width="1.2" opacity=".7"/>
+  <path d="M51 31h26v20h20v26H77v20H51V77H31V51h20z" fill="url(#cross)" opacity=".18" filter="url(#softGlow)"/>
+  <path d="M51 31h26v20h20v26H77v20H51V77H31V51h20z" fill="none" stroke="url(#cross)" stroke-width="4" stroke-linejoin="round" filter="url(#glow)"/>
+  <path d="M64 38v52M38 64h52" fill="none" stroke="#d9fbff" stroke-width="2" stroke-linecap="round" opacity=".92"/>
+  <circle cx="64" cy="64" r="7" fill="#07111f" stroke="#8df7b0" stroke-width="2.5" filter="url(#glow)"/>
+  <circle cx="26" cy="42" r="3.5" fill="#8df7b0" filter="url(#glow)"/>
+  <circle cx="101" cy="85" r="3.5" fill="#25d5ee" filter="url(#glow)"/>
+  <circle cx="93" cy="28" r="2.5" fill="#72a9ff"/>
+</svg>
