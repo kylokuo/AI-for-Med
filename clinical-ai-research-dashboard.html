@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="国内临床研究与 AI 商业化调研交互式报告">
+  <title>临床研究 × AI：国内市场调研桌面</title>
+  <style>
+    :root {
+      --ink: #10233f;
+      --muted: #64748b;
+      --muted-2: #8da0b8;
+      --paper: #f5f8fc;
+      --panel: #ffffff;
+      --line: #dbe5f0;
+      --blue: #2563eb;
+      --blue-2: #dce9ff;
+      --teal: #0f766e;
+      --teal-2: #d6f2ee;
+      --orange: #d97706;
+      --orange-2: #ffedd5;
+      --purple: #7c3aed;
+      --purple-2: #eee5ff;
+      --red: #b91c1c;
+      --red-2: #fee2e2;
+      --shadow: 0 18px 50px rgba(16, 35, 63, .08);
+      --radius: 22px;
+      --radius-sm: 13px;
+      --max: 1280px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% -10%, #dbeafe 0, transparent 32%),
+        radial-gradient(circle at 86% 3%, #e0f2fe 0, transparent 28%),
+        var(--paper);
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .shell { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(245, 248, 252, .86);
+      border-bottom: 1px solid rgba(219, 229, 240, .85);
+    }
+    .topbar-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: -.02em; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 11px;
+      display: grid; place-items: center; color: white;
+      background: linear-gradient(135deg, #1d4ed8, #0f766e);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, .25);
+    }
+    .brand small { display: block; color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: .05em; }
+    .nav { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a { color: var(--muted); padding: 8px 11px; border-radius: 10px; font-size: 13px; }
+    .nav a:hover { color: var(--ink); background: var(--panel); text-decoration: none; }
+
+    .hero { padding: 72px 0 34px; }
+    .eyebrow { color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { max-width: 900px; font-size: clamp(34px, 5vw, 64px); line-height: 1.05; letter-spacing: -.055em; margin-top: 15px; }
+    .hero-copy { max-width: 760px; margin-top: 22px; font-size: 18px; color: #41536c; }
+    .hero-note { margin-top: 17px; color: var(--muted); font-size: 13px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .btn {
+      border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px;
+      color: var(--ink); background: var(--panel); font-weight: 650; font-size: 13px;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(16, 35, 63, .08); }
+    .btn.primary { border-color: var(--blue); color: white; background: var(--blue); }
+    .btn.ghost { background: transparent; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 36px; }
+    .stat { background: rgba(255,255,255,.88); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px; box-shadow: 0 7px 24px rgba(16,35,63,.04); }
+    .stat-label { color: var(--muted); font-size: 12px; }
+    .stat-value { display: block; font-size: 30px; font-weight: 750; letter-spacing: -.04em; margin-top: 2px; }
+    .stat-note { color: var(--muted-2); font-size: 12px; margin-top: 4px; }
+
+    main { padding-bottom: 90px; }
+    section { scroll-margin-top: 92px; margin-top: 42px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .section-head h2 { font-size: 28px; line-height: 1.15; letter-spacing: -.035em; }
+    .section-head p { color: var(--muted); font-size: 13px; max-width: 540px; text-align: right; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .panel { background: rgba(255,255,255,.9); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .panel h3 { font-size: 17px; letter-spacing: -.02em; }
+    .panel-intro { color: var(--muted); font-size: 13px; margin-top: 5px; }
+    .tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 750; border-radius: 999px; padding: 4px 8px; white-space: nowrap; }
+    .tag.fact { color: var(--teal); background: var(--teal-2); }
+    .tag.claim { color: var(--orange); background: var(--orange-2); }
+    .tag.demo { color: var(--purple); background: var(--purple-2); }
+    .tag.risk { color: var(--red); background: var(--red-2); }
+    .caption { color: var(--muted); font-size: 12px; margin-top: 12px; }
+
+    .bar-list { margin-top: 20px; display: grid; gap: 13px; }
+    .bar-row { display: grid; grid-template-columns: minmax(122px, 1.1fr) 2.2fr 46px; align-items: center; gap: 10px; font-size: 13px; }
+    .bar-label { color: #3f526c; }
+    .track { height: 11px; background: #e9eff6; border-radius: 999px; overflow: hidden; }
+    .fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), #38bdf8); transform-origin: left; animation: grow .7s ease both; }
+    .fill.teal { background: linear-gradient(90deg, var(--teal), #34d399); }
+    .fill.orange { background: linear-gradient(90deg, var(--orange), #fbbf24); }
+    .fill.purple { background: linear-gradient(90deg, var(--purple), #c084fc); }
+    .bar-value { font-weight: 750; text-align: right; font-variant-numeric: tabular-nums; }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    .stacked { display: flex; height: 24px; overflow: hidden; border-radius: 8px; margin-top: 20px; background: #edf2f7; }
+    .seg { display: flex; align-items: center; justify-content: center; min-width: 34px; color: white; font-size: 11px; font-weight: 800; }
+    .seg.platform { background: var(--blue); }
+    .seg.service { background: var(--orange); }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; color: var(--muted); font-size: 12px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .dot.blue { background: var(--blue); } .dot.orange { background: var(--orange); } .dot.teal { background: var(--teal); } .dot.purple { background: var(--purple); }
+
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .tab { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 9px 13px; border-radius: 999px; font-weight: 700; font-size: 13px; }
+    .tab[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+    [role="tabpanel"][hidden] { display: none; }
+
+    .insight { padding: 17px; border-radius: 15px; background: #f8fbff; border: 1px solid #e4edf7; }
+    .insight strong { display: block; font-size: 15px; margin-bottom: 3px; }
+    .insight p { color: var(--muted); font-size: 13px; }
+    .insight.blue { border-left: 4px solid var(--blue); }
+    .insight.teal { border-left: 4px solid var(--teal); }
+    .insight.orange { border-left: 4px solid var(--orange); }
+    .insight.purple { border-left: 4px solid var(--purple); }
+
+    .maturity { display: grid; gap: 10px; margin-top: 18px; }
+    .maturity-row { display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center; font-size: 13px; }
+    .maturity-track { display: flex; gap: 4px; }
+    .maturity-track i { display: block; height: 10px; flex: 1; border-radius: 4px; background: #e6edf5; }
+    .maturity-track i.on { background: var(--teal); }
+    .maturity-track i.mid { background: var(--orange); }
+
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; align-items: stretch; margin-top: 20px; }
+    .flow-step { position: relative; padding: 16px 13px; border-radius: 15px; background: #f8fbff; border: 1px solid #dce8f4; }
+    .flow-step:not(:last-child)::after { content: "→"; position: absolute; right: -15px; top: 50%; transform: translateY(-50%); color: var(--blue); font-size: 22px; z-index: 2; }
+    .flow-no { display: block; color: var(--blue); font-size: 11px; font-weight: 800; }
+    .flow-step strong { display: block; font-size: 14px; margin-top: 4px; }
+    .flow-step span { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    .company-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 7px; }
+    .filter { border: 1px solid var(--line); background: var(--panel); color: var(--muted); border-radius: 999px; padding: 7px 11px; font-size: 12px; font-weight: 700; }
+    .filter[aria-pressed="true"] { color: var(--blue); border-color: #a9c6ff; background: var(--blue-2); }
+    .company-card { display: flex; flex-direction: column; min-height: 235px; }
+    .company-card .top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+    .company-card h3 { font-size: 19px; }
+    .company-card p { color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .company-card ul { margin: 14px 0 0; padding-left: 18px; color: #41536c; font-size: 12px; }
+    .company-card li + li { margin-top: 5px; }
+    .company-card .fit { margin-top: auto; padding-top: 16px; color: var(--muted-2); font-size: 11px; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 15px; margin-top: 16px; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 13px; background: rgba(255,255,255,.82); }
+    th, td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; background: #f8fbff; }
+    tr:last-child td { border-bottom: 0; }
+
+    .evidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .evidence-card { overflow: hidden; background: var(--panel); border: 1px solid var(--line); border-radius: 17px; }
+    .evidence-card img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #e7eef8; }
+    .evidence-body { padding: 13px 15px 15px; }
+    .evidence-body h3 { font-size: 14px; }
+    .evidence-body p { color: var(--muted); font-size: 12px; margin-top: 5px; }
+    details { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 14px; }
+    summary { cursor: pointer; color: var(--blue); font-size: 13px; font-weight: 750; }
+    .source-list { display: grid; gap: 8px; margin-top: 12px; color: var(--muted); font-size: 12px; }
+    .source-list code { color: var(--ink); font-size: 11px; }
+
+    .footer { padding: 30px 0 70px; color: var(--muted); font-size: 12px; }
+    .footer-line { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; }
+    .disclaimer { padding: 13px 15px; background: #fff8eb; border: 1px solid #f6d9a8; border-radius: 14px; color: #8a5b0a; font-size: 12px; margin-top: 16px; }
+
+    @media (max-width: 900px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .grid-2, .evidence-grid { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .flow { grid-template-columns: 1fr; }
+      .flow-step:not(:last-child)::after { content: "↓"; top: auto; right: 50%; bottom: -22px; transform: translateX(50%); }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 24px, var(--max)); }
+      .topbar-inner { align-items: flex-start; padding: 12px 0; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      .hero { padding-top: 44px; }
+      h1 { font-size: 38px; }
+      .hero-copy { font-size: 16px; }
+      .stats, .grid-3 { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+      .section-head p { text-align: left; }
+      .bar-row { grid-template-columns: 1fr 2fr 38px; gap: 7px; font-size: 12px; }
+      .maturity-row { grid-template-columns: 100px 1fr; }
+      .panel { padding: 17px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="回到报告顶部">
+        <span class="brand-mark" aria-hidden="true">×</span>
+        <span>临床研究 × AI <small>证据分层调研桌面</small></span>
+      </a>
+      <nav class="nav" aria-label="页面导航">
+        <a href="#landscape">行业现状</a>
+        <a href="#ai">AI 应用</a>
+        <a href="#taimei">太美拆解</a>
+        <a href="#market">公司对照</a>
+        <a href="#evidence">证据</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="shell">
+    <section class="hero">
+      <div class="eyebrow">Clinical development intelligence · 2026</div>
+      <h1>国内临床研究，正在从“规模增长”转向“数据、合规与智能交付”的竞争。</h1>
+      <p class="hero-copy">这份网页把附件 PDF、太美大会演示和太美官方财报放在同一条证据链上：先看行业，再看 AI 的真实落点，最后判断平台、服务和院内外场景能否形成付费闭环。</p>
+      <p class="hero-note">阅读方式：蓝绿色标签 = 公开披露/调查；橙色 = 公司宣称；紫色 = 演示或未独立验证。</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#taimei">直接看太美商业化</a>
+        <a class="btn" href="#ai">探索 AI 应用成熟度</a>
+        <a class="btn ghost" href="#evidence">查看辅助证据</a>
+      </div>
+
+      <div class="stats" aria-label="关键指标">
+        <div class="stat"><span class="stat-label">2025 中国新启动临床试验</span><span class="stat-value">3,110</span><span class="stat-note">附件材料口径</span></div>
+        <div class="stat"><span class="stat-label">2026 AI pilot use</span><span class="stat-value">39%</span><span class="stat-note">调查口径，2025 为 20%</span></div>
+        <div class="stat"><span class="stat-label">太美 2025 平台收入</span><span class="stat-value">¥3.76亿</span><span class="stat-note">占总收入 73.4%</span></div>
+        <div class="stat"><span class="stat-label">Wiz.AI 2026 H1 收入</span><span class="stat-value">¥6,180万</span><span class="stat-note">同比增长 48.0%</span></div>
+      </div>
+    </section>
+
+    <section id="landscape">
+      <div class="section-head"><div><div class="eyebrow">01 · Landscape</div><h2>行业现状：量在涨，难点在后半程</h2></div><p>附件材料更适合用来判断趋势，不宜替代国家注册试验数据库或完整行业统计。</p></div>
+      <div class="grid-2">
+        <article class="panel">
+          <span class="tag claim">调查 / 分析口径</span>
+          <h3 style="margin-top:10px">国内优势集中在“启动以前”</h3>
+          <p class="panel-intro">患者资源、成本和启动速度构成相对优势；全球后期开发更看重合规、质量和跨境运营。</p>
+          <div class="maturity">
+            <div class="maturity-row"><span>患者与中心资源</span><span class="maturity-track" aria-label="相对优势高"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+            <div class="maturity-row"><span>启动速度与成本</span><span class="maturity-track" aria-label="相对优势高"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="mid"></i></span></div>
+            <div class="maturity-row"><span>全球合规交付</span><span class="maturity-track" aria-label="仍需补强"><i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i></i></span></div>
+            <div class="maturity-row"><span>跨机构数据标准</span><span class="maturity-track" aria-label="仍需补强"><i class="on"></i><i class="mid"></i><i></i><i></i><i></i></span></div>
+          </div>
+          <div class="disclaimer">“临床研究”在附件语境中主要指药物临床开发；IIT、器械、RWE 和院外健康管理不应直接套用同一组数字。</div>
+        </article>
+        <article class="panel">
+          <span class="tag fact">附件 PDF · p4</span>
+          <h3 style="margin-top:10px">中国药企仍是主要需求方</h3>
+          <p class="panel-intro">材料估计，中国药企在中国开展的试验约占 80%；本土项目更偏国内 CRO，MRCT/出海项目更偏跨国 CRO。</p>
+          <div class="stacked" role="img" aria-label="中国药企在中国开展的试验约占80%，为附件材料估计"><div class="seg platform" style="width:80%">约 80%</div><div class="seg service" style="width:20%">其余</div></div>
+          <div class="legend"><span><i class="dot blue"></i>中国药企在中国开展的试验</span><span><i class="dot orange"></i>其他</span></div>
+          <div class="insight teal" style="margin-top:20px"><strong>关键判断</strong><p>市场机会不只在“把患者招进来”，更在于把医院、CRO、申办方之间的证据流、任务流和合规流接起来。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="section-head"><div><div class="eyebrow">02 · AI adoption</div><h2>AI 已进入工作流，但还没进入“无人监督决策”</h2></div><p>先看低风险、可审计的任务，再逐步进入方案、终点和成功率预测。</p></div>
+      <div class="tabs" role="tablist" aria-label="AI 视图">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="ai-panel-priority" id="ai-tab-priority" data-tab="ai-panel-priority">投资优先级</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="ai-panel-adoption" id="ai-tab-adoption" data-tab="ai-panel-adoption">采用状态</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="ai-panel-maturity" id="ai-tab-maturity">成熟度地图</button>
+      </div>
+      <div id="ai-panel-priority" role="tabpanel" aria-labelledby="ai-tab-priority">
+        <div class="grid-2">
+          <article class="panel"><span class="tag fact">附件 PDF · p40</span><h3 style="margin-top:10px">未来 AI 投资重点</h3><p class="panel-intro">比例表示调查对象将其列为未来投资重点，不是收入占比。</p><div id="priority-bars" class="bar-list"></div><p class="caption">数据源：L.E.K. × PharmaDJ 调查，样本 N=117。</p></article>
+          <article class="panel"><span class="tag risk">优先落地建议</span><h3 style="margin-top:10px">从“可核查”开始</h3><div class="grid-2" style="margin-top:18px;gap:10px"><div class="insight teal"><strong>先做</strong><p>文档、数据质控、医学分析、药物警戒、站点与患者识别。</p></div><div class="insight orange"><strong>后做</strong><p>PoS、虚拟患者、剂量和终点推荐，必须补外部验证。</p></div></div><div class="flow"><div class="flow-step"><span class="flow-no">01</span><strong>数据底座</strong><span>结构化、溯源</span></div><div class="flow-step"><span class="flow-no">02</span><strong>工作流</strong><span>嵌入系统</span></div><div class="flow-step"><span class="flow-no">03</span><strong>Agent</strong><span>人机协同</span></div><div class="flow-step"><span class="flow-no">04</span><strong>验证</strong><span>GCP/GxP</span></div><div class="flow-step"><span class="flow-no">05</span><strong>收费</strong><span>订阅+服务</span></div></div></article>
+        </div>
+      </div>
+      <div id="ai-panel-adoption" role="tabpanel" aria-labelledby="ai-tab-adoption" hidden>
+        <div class="grid-2">
+          <article class="panel"><span class="tag fact">附件 PDF · p39</span><h3 style="margin-top:10px">不同组织的采用状态</h3><p class="panel-intro">2026 年调查：pilot、actively investing、extensive 三种状态并不构成完整百分比。</p><div id="adoption-bars" class="bar-list"></div><div class="legend"><span><i class="dot blue"></i>Pilot</span><span><i class="dot teal"></i>Actively investing</span><span><i class="dot purple"></i>Extensive</span></div></article>
+          <article class="panel"><span class="tag claim">解释</span><h3 style="margin-top:10px">为什么中国更偏“找人、选中心、定方案”</h3><div class="insight blue" style="margin-top:18px"><strong>国内需求</strong><p>中国企业仍在加速试验启动和资源匹配，因此方案设计、可行性评估、中心识别和患者识别更靠前。</p></div><div class="insight teal" style="margin-top:10px"><strong>欧美需求</strong><p>更偏成熟的捕获、分析、质量与跨国流程，因此数据管理和分析型 AI 的比重更高。</p></div><div class="disclaimer">调查结果适合解释“方向”，不适合推断单家公司的采购率、收入或产品领先程度。</div></article>
+        </div>
+      </div>
+      <div id="ai-panel-maturity" role="tabpanel" aria-labelledby="ai-tab-maturity" hidden>
+        <div class="grid-3">
+          <article class="panel"><span class="tag fact">高成熟度</span><h3 style="margin-top:10px">合规型自动化</h3><p class="panel-intro">文档、编码、Query、ICSR、数据结构化、医学报告。</p><div class="maturity"><div class="maturity-row"><span>可审计</span><span class="maturity-track"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="maturity-row"><span>人审边界</span><span class="maturity-track"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div></div></article>
+          <article class="panel"><span class="tag claim">中成熟度</span><h3 style="margin-top:10px">运营型智能</h3><p class="panel-intro">中心识别、患者匹配、医学监查、RBQM、入组预测。</p><div class="maturity"><div class="maturity-row"><span>数据依赖</span><span class="maturity-track"><i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i></i></span></div><div class="maturity-row"><span>业务价值</span><span class="maturity-track"><i class="on"></i><i class="on"></i><i class="on"></i><i class="mid"></i><i></i></span></div></div></article>
+          <article class="panel"><span class="tag demo">高风险探索</span><h3 style="margin-top:10px">决策型智能</h3><p class="panel-intro">PoS、剂量、终点、虚拟患者、试验模拟。</p><div class="maturity"><div class="maturity-row"><span>外部验证</span><span class="maturity-track"><i class="on"></i><i class="mid"></i><i></i><i></i><i></i></span></div><div class="maturity-row"><span>监管接受</span><span class="maturity-track"><i class="on"></i><i class="mid"></i><i></i><i></i><i></i></span></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="taimei">
+      <div class="section-head"><div><div class="eyebrow">03 · Taimei teardown</div><h2>太美：平台、服务和 AI Agent 的三层叠加</h2></div><p>公开财报证明已有平台和 SaaS/AI 产品收入，但没有公开 AI 独立 ARR 和续费率。</p></div>
+      <div class="grid-2">
+        <article class="panel"><span class="tag fact">2025 年报 · IFRS</span><h3 style="margin-top:10px">收入结构：平台更像软件，服务更像交付</h3><p class="panel-intro">AI 临床开发平台毛利率明显高于临床试验服务，说明产品化程度不同。</p><div class="stacked" role="img" aria-label="太美2025收入结构：AI临床开发平台73.4%，临床试验服务26.6%"><div class="seg platform" style="width:73.4%">73.4%</div><div class="seg service" style="width:26.6%">26.6%</div></div><div class="legend"><span><i class="dot blue"></i>AI 临床开发平台 ¥3.761亿 / 毛利率 52.4%</span><span><i class="dot orange"></i>临床试验服务 ¥1.364亿 / 毛利率 15.0%</span></div><div class="insight blue" style="margin-top:18px"><strong>商业化判断</strong><p>不是“只卖模型”，而是用平台收费，再用数据管理、医学分析、终点评估和临床执行承接高价值交付。</p></div></article>
+        <article class="panel"><span class="tag fact">2026 年中报</span><h3 style="margin-top:10px">Wiz.AI 已有单列收入</h3><p class="panel-intro">新合同额不等于当期收入，也不等于经常性收入，但可以证明已经进入销售和交付体系。</p><div id="taimei-bars" class="bar-list"></div><div class="disclaimer">年报审计关键事项另披露：2025 年 SaaS/AI 产品收入 ¥1.682亿，数字化服务收入 ¥3.067亿；订阅型产品按合同期确认，按量型产品按使用发生确认。</div></article>
+      </div>
+      <article class="panel" style="margin-top:18px"><span class="tag claim">模块地图</span><h3 style="margin-top:10px">从数据采集到商业化的产品栈</h3><div class="grid-3" style="margin-top:18px">
+        <div class="insight blue"><strong>临床数据与运营</strong><p>eCollect/EDC、eCOA/ePRO、IWRS、eCooperate/CTMS、eArchives/eTMF。</p></div>
+        <div class="insight teal"><strong>医院与科研</strong><p>eSitePro、IIT-EDC、HIS/LIS 接入、伦理、研究诊疗、研究药物管理。</p></div>
+        <div class="insight orange"><strong>安全与医学</strong><p>eSafety/iPV、iMAP、IRC/eImage、PFS/OS 跟踪、AI 辅助终点评估。</p></div>
+        <div class="insight purple"><strong>AI Agent</strong><p>Wiz.AI、iDM 数据管理、iCTA 临床试验/方案、iPV 药物警戒。</p></div>
+        <div class="insight blue"><strong>商业化营销</strong><p>PharmaOS、SFE、辖区管理、流向数据、销量预测和业绩管理。</p></div>
+        <div class="insight teal"><strong>专业服务与投资</strong><p>AI-enabled CRO、临床资产开发基金，形成平台+服务+资产投资组合。</p></div>
+      </div></article>
+    </section>
+
+    <section id="scene">
+      <div class="section-head"><div><div class="eyebrow">04 · Care setting</div><h2>不是简单的“入院 / 院外”二选一</h2></div><p>更准确的划分是：院内研究管理、跨机构临床运营、患者院外触达。</p></div>
+      <div class="table-wrap"><table><thead><tr><th>层级</th><th>典型模块</th><th>主要采购者</th><th>当前判断</th></tr></thead><tbody>
+        <tr><td><strong>院内研究管理</strong></td><td>eSitePro、IIT-EDC、HIS/LIS、伦理、研究诊疗、研究药物</td><td>医院、研究机构、科研管理部门</td><td><span class="tag fact">明确存在</span><br>医院内流程数字化是清晰场景。</td></tr>
+        <tr><td><strong>跨机构临床运营</strong></td><td>EDC、CTMS、PV、医学分析、终点评估、Wiz.AI</td><td>药企、CRO、医院研究中心</td><td><span class="tag fact">核心业务</span><br>太美主要收入和平台价值集中于此。</td></tr>
+        <tr><td><strong>患者院外触达</strong></td><td>远程随访、PRO、患者招募、RWD、慢病管理</td><td>药企、医院、健康管理平台</td><td><span class="tag risk">证据不足</span><br>未见太美已形成成熟的患者端商业闭环。</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section id="market">
+      <div class="section-head"><div><div class="eyebrow">05 · Market map</div><h2>公司对照：不要把不同生意混成一个赛道</h2></div><p>点击场景筛选，观察哪家公司更接近你的目标。</p></div>
+      <div class="panel">
+        <div class="company-toolbar"><div id="company-filters" class="filter-group" aria-label="公司场景筛选"></div><span id="company-count" class="tag fact" aria-live="polite"></span></div>
+        <div id="company-grid" class="grid-3"></div>
+      </div>
+    </section>
+
+    <section id="learn">
+      <div class="section-head"><div><div class="eyebrow">06 · What to learn</div><h2>值得学习的，不是某个 Agent，而是落地顺序</h2></div><p>把“能演示”转成“可采购、可审计、可复购”。</p></div>
+      <div class="grid-2">
+        <article class="panel"><div class="grid-2"><div class="insight teal"><strong>01 · 先做数据底座</strong><p>统一数据模型、权限、稽查痕迹和溯源，再叠加 AI。</p></div><div class="insight blue"><strong>02 · 嵌入既有工作流</strong><p>AI 输出必须直接进入 EDC、CTMS、PV、医学分析和文档流程。</p></div><div class="insight orange"><strong>03 · 平台 + 服务</strong><p>复杂场景用专家交付验证 ROI，避免只卖一个聊天窗口。</p></div><div class="insight purple"><strong>04 · 从 POC 到 SOP</strong><p>边界定义 → 小范围 Pilot → 合规验证 → SOP 重设 → 扩大部署。</p></div></div></article>
+        <article class="panel"><span class="tag risk">结论的可推翻条件</span><h3 style="margin-top:10px">需要持续追踪的三个风险</h3><div class="source-list"><div><strong>商业模式：</strong>如果 Wiz.AI 主要是一次性项目，不能称为强经常性 AI SaaS。</div><div><strong>证据质量：</strong>如果独立验证无法复现 PoS 和效率提升，演示只能作为产品方向。</div><div><strong>场景边界：</strong>如果患者招募和健康管理出现持续收入，太美的院外判断需要更新。</div></div><div class="disclaimer">选型建议：药企/CRO 临床研发优先看太美、Medidata、IQVIA；医院科研优先看太美 eSitePro/IIT-EDC 和医渡；患者院外管理优先看医渡等健康管理型平台。</div></article>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="section-head"><div><div class="eyebrow">07 · Evidence</div><h2>辅助证据：原图与来源口径</h2></div><p>图像用于定位原始页；网页中的重绘图采用同一数据，但已经把证据等级写在图旁。</p></div>
+      <div class="evidence-grid">
+        <article class="evidence-card"><img src="assets/clinical-ai-evidence/ai-adoption.png" alt="附件PDF中AI采用率调查页面截图"><div class="evidence-body"><span class="tag fact">PDF p39</span><h3 style="margin-top:8px">AI 采用状态</h3><p>2025 pilot use 20%，2026 pilot use 39%；分组织给出 pilot、actively investing 和 extensive。</p></div></article>
+        <article class="evidence-card"><img src="assets/clinical-ai-evidence/ai-investment-priorities.png" alt="附件PDF中AI投资重点页面截图"><div class="evidence-body"><span class="tag fact">PDF p40</span><h3 style="margin-top:8px">未来投资重点</h3><p>方案设计/优化、医学写作、患者识别、中心识别和可行性评估排在前面。</p></div></article>
+        <article class="evidence-card"><img src="assets/clinical-ai-evidence/ai-barriers.png" alt="附件PDF中AI规模化障碍页面截图"><div class="evidence-body"><span class="tag risk">PDF p42</span><h3 style="margin-top:8px">规模化障碍</h3><p>数据安全、监管不确定性、输出可验证性和数据标准化是主要障碍。</p></div></article>
+      </div>
+      <details>
+        <summary>展开来源与证据分层</summary>
+        <div class="source-list">
+          <div><span class="tag fact">公开披露</span> 太美 2025 年报：<a href="https://ir.taimei.com/media/t1mikrcm/2025-annual-report.pdf" target="_blank" rel="noreferrer">官方 PDF</a>；太美 2026 中报：<a href="https://ir.taimei.com/media/w1inof33/2026-interim-report.pdf" target="_blank" rel="noreferrer">官方 PDF</a>。</div>
+          <div><span class="tag fact">产品页</span> <a href="https://www.taimei.com/wiz" target="_blank" rel="noreferrer">Wiz.AI</a> · <a href="https://www.taimei.com/ecollect" target="_blank" rel="noreferrer">eCollect</a> · <a href="https://www.taimei.com/ecoperate" target="_blank" rel="noreferrer">eCooperate</a> · <a href="https://www.taimei.com/esitepro" target="_blank" rel="noreferrer">eSitePro</a> · <a href="https://www.taimei.com/esafety" target="_blank" rel="noreferrer">eSafety</a> · <a href="https://www.taimei.com/imap" target="_blank" rel="noreferrer">iMAP</a> · <a href="https://www.taimei.com/endpoint" target="_blank" rel="noreferrer">终点评估</a>。</div>
+          <div><span class="tag fact">对照来源</span> <a href="https://www.yidutech.com/yidu-core.html" target="_blank" rel="noreferrer">医渡 YIDUCORE</a> · <a href="https://www.yidutech.com/solution03.html" target="_blank" rel="noreferrer">医渡生命科学解决方案</a>。</div>
+          <div><span class="tag claim">公司/会议宣称</span> 太美大会图片中的 300+ agents、35 个企业级合作客户、50—90% 效率增益、PoS 示例等没有在本页作为独立事实使用。</div>
+          <div><span class="tag demo">开源参考</span> <a href="https://github.com/apache/echarts" target="_blank" rel="noreferrer">Apache ECharts</a>（Apache-2.0，约 6.8 万 Star）· <a href="https://github.com/vega/vega" target="_blank" rel="noreferrer">Vega</a>（BSD-3-Clause，约 1.2 万 Star）· <a href="https://github.com/plotly/plotly.js" target="_blank" rel="noreferrer">Plotly.js</a>（MIT，约 1.8 万 Star）。本页未依赖它们的运行时，便于离线打开。</div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <div class="footer-line"><span>临床研究 × AI · 证据分层调研桌面</span><span>更新：2026-11-16 · 仅用于研究讨论</span></div>
+  </footer>
+
+  <script>
+    const priorityData = [
+      { label: '方案设计 / 优化', value: 59, tone: 'blue' },
+      { label: '医学写作', value: 35, tone: 'teal' },
+      { label: '患者识别 / 匹配', value: 31, tone: 'purple' },
+      { label: '可行性评估', value: 29, tone: 'orange' },
+      { label: '中心识别 / 选择', value: 28, tone: 'blue' },
+      { label: 'RBQM', value: 22, tone: 'teal' },
+      { label: '患者招募', value: 18, tone: 'purple' },
+      { label: '数据清理 / Query', value: 15, tone: 'orange' },
+      { label: 'TMF 管理', value: 15, tone: 'blue' }
+    ];
+    const adoptionData = [
+      { label: '中国药企', pilot: 43, investing: 17, extensive: 2 },
+      { label: '跨国药企', pilot: 37, investing: 47, extensive: 5 },
+      { label: 'CRO', pilot: 43, investing: 33, extensive: 5 }
+    ];
+    const taimeiData = [
+      { label: '平台新合同额', value: 266.1, suffix: '¥2.661亿', tone: 'blue', max: 300 },
+      { label: 'Wiz.AI 新合同额', value: 122.8, suffix: '¥1.228亿', tone: 'purple', max: 300 },
+      { label: '平台收入', value: 158.8, suffix: '¥1.588亿', tone: 'teal', max: 300 },
+      { label: 'Wiz.AI 收入', value: 61.8, suffix: '¥6,180万', tone: 'orange', max: 300 }
+    ];
+    const companies = [
+      { name: '太美', tags: ['院内', '跨机构'], tone: 'blue', desc: '临床研发数字基础设施 + AI Agent + AI-enabled CRO。', modules: ['EDC / CTMS / PV / 医学分析 / 终点评估', 'Wiz.AI：iDM、iCTA、iPV', '平台订阅、按量产品与专业服务并行'], fit: '适合：药企/CRO 临床研发、医院研究协同' },
+      { name: '医渡科技', tags: ['院内', '跨机构', '院外'], tone: 'teal', desc: '医疗数据标准化、疾病知识、真实世界证据和健康管理。', modules: ['YIDUCORE 数据与知识基础设施', '医院科研 / 临床 / 管理解决方案', '药企全生命周期与患者健康管理'], fit: '适合：RWE、院内外疾病数据、健康管理' },
+      { name: 'IQVIA', tags: ['跨机构'], tone: 'orange', desc: '全球 CRO、临床开发、真实世界数据、分析和技术平台。', modules: ['多中心临床运营与注册支持', '数据、分析和真实世界证据', '全球药企交付和合规能力'], fit: '适合：MRCT、出海和全球合规交付' },
+      { name: 'Medidata', tags: ['跨机构'], tone: 'purple', desc: '全球 eClinical Cloud，强调标准化产品和大型药企使用。', modules: ['EDC、CTMS、eCOA、RTSM', '临床数据和分析', 'AI 辅助的研发工作流'], fit: '适合：标准化 eClinical 产品能力' },
+      { name: '泰格等 CRO', tags: ['跨机构', '院内'], tone: 'orange', desc: '以临床执行、注册、数据管理、统计和中心网络为核心。', modules: ['项目执行与中心网络', '注册、医学、统计和数据管理', '全球化临床开发服务'], fit: '适合：规模化交付和中心资源' }
+    ];
+
+    function renderPriority() {
+      const root = document.getElementById('priority-bars');
+      root.innerHTML = priorityData.map(item => `<div class="bar-row"><span class="bar-label">${item.label}</span><span class="track"><span class="fill ${item.tone}" style="width:${item.value / 60 * 100}%"></span></span><strong class="bar-value">${item.value}%</strong></div>`).join('');
+    }
+
+    function renderAdoption() {
+      const root = document.getElementById('adoption-bars');
+      root.innerHTML = adoptionData.map(item => `<div style="display:grid;gap:6px"><strong style="font-size:13px">${item.label}</strong><div class="stacked" style="margin-top:0;height:20px"><div class="seg platform" style="width:${item.pilot}%">${item.pilot}%</div><div class="seg" style="width:${item.investing}%;background:var(--teal)">${item.investing}%</div><div class="seg" style="width:${item.extensive}%;background:var(--purple)">${item.extensive}%</div></div></div>`).join('');
+    }
+
+    function renderTaimei() {
+      const root = document.getElementById('taimei-bars');
+      root.innerHTML = taimeiData.map(item => `<div class="bar-row"><span class="bar-label">${item.label}</span><span class="track"><span class="fill ${item.tone}" style="width:${item.value / item.max * 100}%"></span></span><strong class="bar-value">${item.suffix}</strong></div>`).join('');
+    }
+
+    function renderCompanies(filter = '全部') {
+      const visible = filter === '全部' ? companies : companies.filter(company => company.tags.includes(filter));
+      document.getElementById('company-count').textContent = `${visible.length} 家参考对象`;
+      document.getElementById('company-grid').innerHTML = visible.map(company => `<article class="panel company-card"><div class="top"><h3>${company.name}</h3><span class="tag ${company.tone === 'orange' ? 'claim' : company.tone === 'purple' ? 'demo' : 'fact'}">${company.tags.join(' · ')}</span></div><p>${company.desc}</p><ul>${company.modules.map(module => `<li>${module}</li>`).join('')}</ul><div class="fit">${company.fit}</div></article>`).join('');
+    }
+
+    function setupTabs() {
+      document.querySelectorAll('[data-tab]').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('[data-tab]').forEach(item => item.setAttribute('aria-selected', item === button ? 'true' : 'false'));
+          document.querySelectorAll('[role="tabpanel"]').forEach(panel => panel.hidden = panel.id !== button.dataset.tab);
+        });
+      });
+    }
+
+    function setupFilters() {
+      const root = document.getElementById('company-filters');
+      ['全部', '院内', '跨机构', '院外'].forEach((filter, index) => {
+        const button = document.createElement('button');
+        button.className = 'filter';
+        button.type = 'button';
+        button.textContent = filter;
+        button.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+        button.addEventListener('click', () => {
+          root.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', item === button ? 'true' : 'false'));
+          renderCompanies(filter);
+        });
+        root.appendChild(button);
+      });
+    }
+
+    renderPriority();
+    renderAdoption();
+    renderTaimei();
+    setupTabs();
+    setupFilters();
+    renderCompanies();
+  </script>
+</body>
+</html>
